@@ -2,6 +2,7 @@ package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class Autor implements Serializable {
 	private Date fechaNacimiento;
 
 	@OneToMany
-	private Set<Libro> obras;
+	private Set<Libro> obras = new HashSet<>();
 
 	public Autor() {
 		super();

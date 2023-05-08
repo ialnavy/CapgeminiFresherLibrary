@@ -1,6 +1,8 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -38,7 +40,7 @@ public class Libro implements Serializable {
 	private Autor autor;
 
 	@OneToMany
-	private Copia ejemplar;
+	private Set<Copia> ejemplar = new HashSet<>();
 
 	public Libro() {
 		super();
@@ -109,11 +111,11 @@ public class Libro implements Serializable {
 		this.autor = autor;
 	}
 
-	public Copia getEjemplar() {
+	public Set<Copia> getEjemplar() {
 		return ejemplar;
 	}
 
-	public void setEjemplar(Copia ejemplar) {
+	public void setEjemplar(Set<Copia> ejemplar) {
 		this.ejemplar = ejemplar;
 	}
 

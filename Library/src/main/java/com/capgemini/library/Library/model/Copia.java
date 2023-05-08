@@ -1,6 +1,7 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class Copia implements Serializable {
 	private Libro libro;
 
 	@OneToMany
-	private Set<Prestamo> prestamos;
+	private Set<Prestamo> prestamos = new HashSet<>();
 
 	public Copia() {
 		super();
