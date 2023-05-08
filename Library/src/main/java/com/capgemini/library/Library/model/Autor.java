@@ -31,7 +31,7 @@ public class Autor implements Serializable {
 	private Date fechaNacimiento;
 	
 	@OneToMany
-	private Set<Libro> libros;
+	private Set<Libro> obras;
 
 	public Autor() {
 		super();
