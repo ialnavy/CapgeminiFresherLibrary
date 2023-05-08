@@ -24,14 +24,14 @@ public class LibroServiceImp implements LibroService{
     }
     
     @Override
-    public Libro obtenerLibroPorId(Integer id) {
+    public Libro obtenerLibroPorId(String id) {
         return libroRepository.findById(id).orElse(null);
     }
     
     @Override
-    public void borrarLibroPorId(Integer id) {
+    public void borrarLibroPorId(String id) {
         libroRepository.deleteById(id);
-
     }
+   
 
 }

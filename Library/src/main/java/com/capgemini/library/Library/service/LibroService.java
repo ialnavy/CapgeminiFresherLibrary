@@ -10,9 +10,11 @@ public interface LibroService {
 
 	public void añadirLibro(Libro libro);
 
-	public Libro obtenerLibroPorId(Integer id);
+	public Libro obtenerLibroPorId(String string);
 
-	public void borrarLibroPorId(Integer id);
+	public void borrarLibroPorId(String id);
+	
+
 
 }
 
