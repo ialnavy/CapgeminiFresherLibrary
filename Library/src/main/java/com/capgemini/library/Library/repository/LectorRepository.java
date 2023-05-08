@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.capgemini.library.Library.model.Lector;
 
-public interface LectorRepository extends CrudRepository<Lector, Integer> {
+public interface LectorRepository extends CrudRepository<Lector, String> {
 
 }

@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.capgemini.library.Library.model.Multa;
 
-public interface MultaRepository extends CrudRepository<Multa, Integer> {
+public interface MultaRepository extends CrudRepository<Multa, String> {
 
 }
