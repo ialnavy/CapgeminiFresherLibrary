@@ -1,12 +1,21 @@
 package com.capgemini.library.Library.model;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
-public class Autor {
+@Entity
+@Table
+public class Autor implements Serializable {
+	
+	private static final long serialVersionUID = -9098486109466500407L;
 
 	@Id
 	@Column
@@ -20,6 +29,9 @@ public class Autor {
 
 	@Column
 	private Date fechaNacimiento;
+	
+	@OneToMany
+	private Set<Libro> libros;
 
 	public Autor() {
 		super();
