@@ -4,7 +4,7 @@
 <body>
     <header th:replace="fragments/header"></header>
     <main>
-    	<form action="#" th:action="@{/añadir-libro}" th:object="${libro}" method="post">
+    	<form action="#" th:action="@{/libro/create}" th:object="${libro}" method="post">
 	        <p><label for="nombre">Nombre del libro:</label>
 	        <input type="text" id="nombre" th:field="*{nombre}" /></p>
 	        

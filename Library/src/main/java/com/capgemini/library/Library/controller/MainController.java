@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.capgemini.library.Library.model.Libro;
 import com.capgemini.library.Library.model.TipoLibro;
@@ -23,6 +25,12 @@ public class MainController {
 		model.addAttribute("tiposDeLibro", List.of(TipoLibro.values()).stream().map(tl -> tl.name()));
 
 		return "createLibro";
+	}
+
+	@PostMapping("/libro/create")
+	public String postCreateLibro(Model model, @ModelAttribute Libro libro) {
+		// TO DO
+		return "redirect:/";
 	}
 
 }
