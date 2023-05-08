@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body>
+    <header th:replace="fragments/header"></header>
+    <main>
+    	<form action="#" th:action="@{/añadir-libro}" th:object="${libro}" method="post">
+	        <p><label for="nombre">Nombre del libro:</label>
+	        <input type="text" id="nombre" th:field="*{nombre}" /></p>
+	        
+	        <p><label for="type">Tipo del libro:</label></p>
+	        <select id="type" th:field="*{type}" th:each="tipoDeLibro : ${tiposDeLibro}">
+	            <option value="${tipoDeLibro}" th:text="${tipoDeLibro}">Tipo de libro</option>
+	        </select>
+	        
+	        <p><label for="editorial">Editorial:</label>
+	        <input type="text" id="editorial" th:field="*{editorial}" /></p>
+	        
+	        <p><label for="año">Año:</label>
+	        <input type="text" id="año" th:field="*{año}" /></p>
+	        
+	        <p><label for="nombreAutor">Nombre del autor:</label>
+	        <input type="text" id="nombreAutor" th:field="*{autor.nombre}" /></p>
+	        
+	        <p><label for="autorNacionalidad">Nacionalidad del autor:</label>
+	        <input type="text" id="autorNacionalidad" th:field="*{autor.nacionalidad}" /></p>
+	        
+	        <p><label for="autorFechaDeNacimiento">Fecha de nacimiento del autor:</label>
+	        <input type="text" id="autorFechaDeNacimiento" th:field="*{autor.fechadenacimiento}" /></p>
+	        
+	        <button type="submit" value="Enviar"></button>
+	        <button type="reset" value="Vaciar datos"></button>
+	    </form>
+    </main>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+
+</html>
+
+    
