@@ -2,16 +2,25 @@ package com.capgemini.library.Library.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class Lector {
-	
+	@Id
+	@Column
 	private Identifier nSocio;
-	
+	@Column
 	private String nombre;
-		
+	@Column
 	private String telefono;
-	
+	@Column
 	private String direccion;
-	
+
+
 	public void devolver(Identifier id, Date fechaAct) {
 		if(prestamos.notEmpty()) {
 			
@@ -19,7 +28,7 @@ public class Lector {
 	}
 	
 	public void prestar(Identifier id, Date fechaAct) {
-		if(multa==0) {
+		if(multar==0) {
 			
 		}
 	}
