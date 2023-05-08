@@ -9,6 +9,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,6 +36,9 @@ public class Libro implements Serializable {
 
 	@ManyToOne
 	private Autor autor;
+
+	@OneToMany
+	private Copia ejemplar;
 
 	public Libro() {
 		super();
@@ -95,6 +99,22 @@ public class Libro implements Serializable {
 
 	public void setAnyo(int anyo) {
 		this.anyo = anyo;
+	}
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
+
+	public Copia getEjemplar() {
+		return ejemplar;
+	}
+
+	public void setEjemplar(Copia ejemplar) {
+		this.ejemplar = ejemplar;
 	}
 
 }

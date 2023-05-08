@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Autor implements Serializable {
-	
+
 	private static final long serialVersionUID = -9098486109466500407L;
 
 	@Id
@@ -29,7 +29,7 @@ public class Autor implements Serializable {
 
 	@Column
 	private Date fechaNacimiento;
-	
+
 	@OneToMany
 	private Set<Libro> obras;
 
@@ -82,6 +82,14 @@ public class Autor implements Serializable {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Set<Libro> getObras() {
+		return obras;
+	}
+
+	public void setObras(Set<Libro> obras) {
+		this.obras = obras;
 	}
 
 }
