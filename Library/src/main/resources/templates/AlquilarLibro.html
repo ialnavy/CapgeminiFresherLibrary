@@ -1,4 +1,9 @@
-
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body>
+    <header th:replace="fragments/header"></header>
+    <main>
     <form action="#" method="post">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required /><br>
@@ -23,5 +28,8 @@
          <button type="submit">Enviar</button>
         <button type="reset">Vaciar datos</button>
     </form>
+    </main>
+    <footer th:replace="fragments/footer"></footer>
+</body>
 
-
+</html>

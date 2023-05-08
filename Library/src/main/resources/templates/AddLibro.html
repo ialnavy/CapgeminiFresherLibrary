@@ -1,5 +1,10 @@
-
-	<form action="#" th:action="@{/añadir-libro}" th:object="${libro}" method="post">
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body>
+    <header th:replace="fragments/header"></header>
+    <main>
+    		<form action="#" th:action="@{/añadir-libro}" th:object="${libro}" method="post">
         <label for="nombre">Nombre del libro:</label>
         <input type="text" id="nombre" th:field="*{nombre}" /><br>
         
@@ -29,3 +34,10 @@
         <button type="submit">Enviar</button>
         <button type="reset">Vaciar datos</button>
     </form>
+    </main>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+
+</html>
+
+    
