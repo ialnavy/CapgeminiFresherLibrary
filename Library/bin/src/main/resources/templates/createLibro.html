@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head}"></head>
+<head th:replace="fragments/head"></head>
 <body>
-    <header th:replace="~{fragments/header}"></header>
+    <header th:replace="fragments/header"></header>
     <main>
     	<form action="#" th:action="@{/libro/create}" th:object="${libro}" method="post">
 	        <p><label for="titulo">Título del libro:</label>
@@ -14,8 +14,8 @@
 	        </select>
 	        
 	        <p><label for="autor">Autor del libro:</label></p>
-	        <select id="autor" name="autorID">
-	            <option th:each="iAutor : ${autores}" th:value="${iAutor.id}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
+	        <select id="autor" th:field="*{autor}" >
+	            <option th:each="iAutor : ${autores}" th:value="${iAutor}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
 	        </select>
 	        
 	        <p><label for="editorial">Editorial:</label>
@@ -28,7 +28,7 @@
 	        <input type="reset" value="Vaciar datos" />
 	    </form>
     </main>
-    <footer th:replace="~{fragments/footer}"></footer>
+    <footer th:replace="fragments/footer"></footer>
 </body>
 
 </html>

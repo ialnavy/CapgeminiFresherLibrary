@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.capgemini.library.Library.model.Libro;
 import com.capgemini.library.Library.model.TipoLibro;
@@ -40,7 +41,8 @@ public class LibroController {
 	}
 
 	@PostMapping("/libro/create")
-	public String postCreateLibro(Model model, @ModelAttribute Libro libro, BindingResult result) {
+	public String postCreateLibro(Model model, @ModelAttribute Libro libro, BindingResult result,
+			@RequestParam("autorID") String autorID) {
 		if (result.hasErrors()) {
 			initialiseLibro(model, autorService);
 
@@ -54,6 +56,7 @@ public class LibroController {
 			result.rejectValue("nombre", "error.libro", "Ya existe un libro con ese nombre");
 			return "createLibro";
 		}
+		libro.setAutor(autorService.findById(autorID));
 		libroService.añadirLibro(libro);
 		return "redirect:/libro/list";
 	}
