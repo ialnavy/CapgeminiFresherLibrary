@@ -1,15 +1,19 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -56,14 +60,28 @@ public class Lector implements Serializable {
 		this.prestamo = prestamo;
 	}
 
-	public Lector(Long nSocio, String nombre, String telefono, String direccion, Prestamo prestamo) {
-		super();
-		this.nSocio = nSocio;
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.prestamo = prestamo;
+	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL)
+	private Set<Prestamo> prestamos = new HashSet<>();
+
+	public Multa multar(int n) {
+		if (this.multa != null) {
+			throw new IllegalStateException("El lector ya tiene una multa activa");
+		}
+		LocalDate fechaInicio = LocalDate.now();
+		LocalDate fechaFin = fechaInicio.plusDays(n);
+		Multa multa = new Multa(Date.valueOf(fechaInicio), Date.valueOf(fechaFin), this);
+		this.multa = multa;
+		return multa;
 	}
+
+	public Set<Prestamo> getPrestamos() {
+		return prestamos;
+	}
+
+	public void setPrestamos(Set<Prestamo> prestamos) {
+		this.prestamos = prestamos;
+	}
+
 
 	public String getId() {
 		return id;
@@ -119,18 +137,6 @@ public class Lector implements Serializable {
 
 	public void setMulta(Multa multa) {
 		this.multa = multa;
-	}
-
-
-	public Multa multar(int n) {
-	    if (this.multa != null) {
-	        throw new IllegalStateException("El lector ya tiene una multa activa");
-	    }
-	    LocalDate fechaInicio = LocalDate.now();
-	    LocalDate fechaFin = fechaInicio.plusDays(n);
-	    Multa multa = new Multa(Date.valueOf(fechaInicio), Date.valueOf(fechaFin), this);
-	    this.multa = multa;
-	    return multa;
 	}
 
 

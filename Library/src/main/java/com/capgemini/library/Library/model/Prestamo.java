@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -15,39 +18,45 @@ import jakarta.persistence.Table;
 @Table
 public class Prestamo implements Serializable {
 
-	private static final long serialVersionUID = 1767484640032941785L;
+	private static final long serialVersionUID = 5754304269210020193L;
 
 	@Id
 	@Column
 	private String id = UUID.randomUUID().toString();
 
 	@Column
-	private Date inicio;
+	private Date fechaPrestamo;
 
 	@Column
-	private Date fin;
+	private Date fechaDevolucion;
 
-	@ManyToOne
-	private Copia copia;
-
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "lector_id", referencedColumnName = "id")
 	private Lector lector;
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "copia_id", referencedColumnName = "id")
+	private Copia copia;
 
 	public Prestamo() {
 		super();
 	}
 
-	public Prestamo(String id, Date inicio, Date fin) {
+	public Prestamo(String id, Date fechaPrestamo, Date fechaDevolucion, Lector lector, Copia copia) {
 		super();
 		this.id = id;
-		this.inicio = inicio;
-		this.fin = fin;
+		this.fechaPrestamo = fechaPrestamo;
+		this.fechaDevolucion = fechaDevolucion;
+		this.lector = lector;
+		this.copia = copia;
 	}
 
-	public Prestamo(Date inicio, Date fin) {
+	public Prestamo(Date fechaPrestamo, Date fechaDevolucion, Lector lector, Copia copia) {
 		super();
-		this.inicio = inicio;
-		this.fin = fin;
+		this.fechaPrestamo = fechaPrestamo;
+		this.fechaDevolucion = fechaDevolucion;
+		this.lector = lector;
+		this.copia = copia;
 	}
 
 	public String getId() {
@@ -58,28 +67,20 @@ public class Prestamo implements Serializable {
 		this.id = id;
 	}
 
-	public Date getInicio() {
-		return inicio;
+	public Date getFechaPrestamo() {
+		return fechaPrestamo;
 	}
 
-	public void setInicio(Date inicio) {
-		this.inicio = inicio;
+	public void setFechaPrestamo(Date fechaPrestamo) {
+		this.fechaPrestamo = fechaPrestamo;
 	}
 
-	public Date getFin() {
-		return fin;
+	public Date getFechaDevolucion() {
+		return fechaDevolucion;
 	}
 
-	public void setFin(Date fin) {
-		this.fin = fin;
-	}
-
-	public Copia getCopia() {
-		return copia;
-	}
-
-	public void setCopia(Copia copia) {
-		this.copia = copia;
+	public void setFechaDevolucion(Date fechaDevolucion) {
+		this.fechaDevolucion = fechaDevolucion;
 	}
 
 	public Lector getLector() {
@@ -88,6 +89,14 @@ public class Prestamo implements Serializable {
 
 	public void setLector(Lector lector) {
 		this.lector = lector;
+	}
+
+	public Copia getCopia() {
+		return copia;
+	}
+
+	public void setCopia(Copia copia) {
+		this.copia = copia;
 	}
 
 }
