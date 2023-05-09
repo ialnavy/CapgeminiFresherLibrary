@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body>
+    <header th:replace="fragments/header"></header>
+    <main>
+    	<h2>Listado de autores</h2>
+    	<table>
+    		<thead>
+                <tr>
+                    <th scope="col" id="nombreAutor">Nombre</th>
+                    <th scope="col" id="nacionalidad">Nacionalidad</th>
+                    <th scope="col" id="fechaNacimiento">Fecha de Nacimiento</th>
+                </tr>
+            </thead>
+            <tbody:block th:each="autor : ${autor}">
+                <tr>
+                    <td headers="nombreAutor" th:text="${autor.nombre}">Titulo -</td>
+                    <td headers="nacionalidad" th:text="${autor.nacionalidad}">Tipo -</td>
+                    <td headers="fechaNacimiento" th:text="${autor.fechaNacimiento}">Editorial -</td>
+                </tr>
+             </tbody:block>
+    	</table>
+    </main>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+
+</html>
+
+    
