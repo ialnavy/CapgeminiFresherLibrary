@@ -13,7 +13,7 @@
                     <th scope="col" id="fechaNacimiento">Fecha de Nacimiento</th>
                 </tr>
             </thead>
-            <tbody:block th:each="autor : ${autor}">
+            <tbody:block th:each="autor : ${autores}">
                 <tr>
                     <td headers="nombreAutor" th:text="${autor.nombre}">Titulo -</td>
                     <td headers="nacionalidad" th:text="${autor.nacionalidad}">Tipo -</td>

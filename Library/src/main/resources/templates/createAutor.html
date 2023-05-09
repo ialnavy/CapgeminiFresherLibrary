@@ -4,22 +4,20 @@
 <body>
 	<header th:replace="fragments/header"></header>
 	<main>
-		<form action="#" th:action="@{/autor/create}" th:object="${autor}"
-			method="post">
+		<form action="#" th:action="@{/autor/create}" th:object="${autor}" method="post">
 			<p>
-				<label for="nombreAutor">Nombre del autor:</label> <input
-					type="text" id="nombreAutor" th:field="*{autor.nombre}" />
+				<label for="nombreAutor">Nombre del autor:</label>
+				<input type="text" id="nombreAutor" th:field="*{nombre}" />
 			</p>
 
 			<p>
-				<label for="nacionalidad">Nacionalidad del autor:</label> <input
-					type="text" id="nacionalidad" th:field="*{autor.nacionalidad}" />
+				<label for="nacionalidad">Nacionalidad del autor:</label>
+				<input type="text" id="nacionalidad" th:field="*{nacionalidad}" />
 			</p>
 
 			<p>
-				<label for="fechaNacimiento">Fecha de nacimiento del
-					autor:</label> <input type="text" id="fechaNacimiento"
-					th:field="*{autor.fechaNacimiento}" />
+				<label for="fechaNacimiento">Fecha de nacimiento del autor:</label>
+				<input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" />
 			</p>
 
 			<input type="submit" value="Enviar" /> 
