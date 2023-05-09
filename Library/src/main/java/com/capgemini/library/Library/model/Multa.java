@@ -2,6 +2,7 @@ package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -76,8 +77,8 @@ public class Multa implements Serializable {
 		return lector;
 	}
 
-	public void setLector(Lector lector) {
-		this.lector = lector;
+	public void setLector(Lector lector2) {
+		this.lector = lector2;
 	}
 
 }

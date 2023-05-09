@@ -1,6 +1,8 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -118,5 +120,19 @@ public class Lector implements Serializable {
 	public void setMulta(Multa multa) {
 		this.multa = multa;
 	}
+
+
+	public Multa multar(int n) {
+	    if (this.multa != null) {
+	        throw new IllegalStateException("El lector ya tiene una multa activa");
+	    }
+	    LocalDate fechaInicio = LocalDate.now();
+	    LocalDate fechaFin = fechaInicio.plusDays(n);
+	    Multa multa = new Multa(Date.valueOf(fechaInicio), Date.valueOf(fechaFin), this);
+	    this.multa = multa;
+	    return multa;
+	}
+
+
 
 }

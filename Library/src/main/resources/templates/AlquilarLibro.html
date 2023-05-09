@@ -2,34 +2,46 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head"></head>
 <body>
-    <header th:replace="fragments/header"></header>
-    <main>
-    <form action="#" method="post">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required /><br>
-        
-        <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono" required /><br>
-        
-        <label for="direccion">Dirección:</label>
-        <input type="text" id="direccion" name="direccion" required /><br>
-        
-        <label for="libro">Libro:</label>
-        <select id="libro" name="libro" required>
-            <option value="Libro 1">Libro 1</option>
-            <option value="Libro 2">Libro 2</option>
-            <option value="Libro 3">Libro 3</option>
-            <option value="Libro 4">Libro 4</option>
-        </select><br>
-        
-        <label for="diasPrestamo">Días de préstamo:</label>
-        <input type="number" id="dias" name="dias" min="1" max="30" required /><br>
-        
-         <button type="submit">Enviar</button>
-        <button type="reset">Vaciar datos</button>
-    </form>
-    </main>
-    <footer th:replace="fragments/footer"></footer>
+	<header th:replace="fragments/header"></header>
+	<main>
+		<form action="#" method="post">
+			<p> <label for="nombre">Nombre:</label> </p>
+			<input type="text" id="nombre" name="nombre" required /><br>
+
+			<p> <label for="telefono">Teléfono:</label> </p>
+			<input type="text" id="telefono" name="telefono" required /><br>
+
+			<p> <label for="direccion">Dirección:</label> </p>
+			<input type="text" id="direccion" name="direccion" required /><br>
+
+			<p> <label for="copia">Estado de la copia:</label> </p>
+			<select id="selectcopia" th:field="*{copia}">
+				<option
+					th:each="estadoDeCopia : ${T(com.capgemini.library.Library.model.EstadoCopia).values()}"
+					th:value="${estadoDeCopia}" 
+					th:text="${estadoDeCopia}">
+				</option>
+			</select>
+			
+			<div>
+				<label for="libro"> Libros </label>
+				<div>
+					<select th:field="*{libros}">
+						<option th:each="libro : ${libro.titulo}"
+								th:text="${libro.tipo}">
+					</select>
+				</div>
+			</div>
+
+			<p> <label for="diasPrestamo">Días de préstamo:</label> </p>
+			<input type="number" id="dias" name="dias" min="1" max="30" required /><br>
+
+
+			<input type="submit">Enviar /> 
+			<input type="reset">Vaciar datos />
+		</form>
+	</main>
+	<footer th:replace="fragments/footer"></footer>
 </body>
 
 </html>
