@@ -109,7 +109,7 @@ public class Libro implements Serializable {
 
 	public void setAutor(Autor autor) {
 		this.autor = autor;
-	}
+	}// hola
 
 	public Set<Copia> getEjemplar() {
 		return ejemplar;
