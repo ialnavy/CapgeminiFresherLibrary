@@ -12,6 +12,7 @@
                     <th scope="col" id="tipo">Tipo de libro</th>
                     <th scope="col" id="editorial">Editorial</th>
                     <th scope="col" id="anyo">Año</th>
+                    <th scope="col" id="autor">autor</th>
                 </tr>
             </thead>
             <tbody:block th:each="libro : ${libros}">
@@ -20,6 +21,7 @@
                     <td headers="tipo" th:text="${libro.tipo}">Tipo -</td>
                     <td headers="editorial" th:text="${libro.editorial}">Editorial -</td>
                     <td headers="anyo" th:text="${libro.anyo}">Año -</td>
+                    <td headers="autor" th:text="${libro.autor ne null} ? '' + ${libro.autor.nombre} + ' (' + ${libro.autor.nacionalidad} + ', ' + ${libro.autor.fechaNacimiento} + ')' : 'Anónimo'">Autor -</td>
                 </tr>
              </tbody:block>
     	</table>

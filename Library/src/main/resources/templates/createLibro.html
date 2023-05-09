@@ -10,7 +10,12 @@
 	        
 	        <p><label for="tipo">Tipo del libro:</label></p>
 	        <select id="tipo" th:field="*{tipo}" >
-	            <option th:each="tipoDeLibro : ${T(com.capgemini.library.Library.model.TipoLibro).values()}" th:value="${tipoDeLibro}" th:text="${tipoDeLibro}"></option>
+	            <option th:each="tipoDeLibro : ${T(com.capgemini.library.Library.model.TipoLibro).values()}" th:value="${tipoDeLibro}" th:text="${tipoDeLibro}">-</option>
+	        </select>
+	        
+	        <p><label for="autor">Autor del libro:</label></p>
+	        <select id="autor" th:field="*{autor}" >
+	            <option th:each="iAutor : ${autores}" th:value="${iAutor}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
 	        </select>
 	        
 	        <p><label for="editorial">Editorial:</label>
