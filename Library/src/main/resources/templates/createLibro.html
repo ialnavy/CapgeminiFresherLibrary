@@ -10,7 +10,7 @@
 	        
 	        <p><label for="tipo">Tipo del libro:</label></p>
 	        <select id="tipo" th:field="*{tipo}" >
-	            <option value="${tipoDeLibro}" th:each="tipoDeLibro : ${tiposDeLibro}" th:text="${tipoDeLibro}">Tipo de libro</option>
+	            <option th:each="tipoDeLibro : ${T(com.capgemini.library.Library.model.TipoLibro).values()}" th:value="${tipoDeLibro}" th:text="${tipoDeLibro}"></option>
 	        </select>
 	        
 	        <p><label for="editorial">Editorial:</label>
