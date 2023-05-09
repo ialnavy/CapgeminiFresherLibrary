@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.capgemini.library.Library.model.Libro;
 import com.capgemini.library.Library.model.TipoLibro;
+import com.capgemini.library.Library.service.AutorService;
 import com.capgemini.library.Library.service.LibroService;
 
 @Controller
 public class LibroController {
+
+	@Autowired
+	private AutorService autorService;
 
 	@Autowired
 	private LibroService libroService;
@@ -30,7 +34,7 @@ public class LibroController {
 
 	@GetMapping("/libro/create")
 	public String getCreateLibro(Model model) {
-		initialiseLibro(model);
+		initialiseLibro(model, autorService);
 
 		return "createLibro";
 	}
@@ -38,26 +42,26 @@ public class LibroController {
 	@PostMapping("/libro/create")
 	public String postCreateLibro(Model model, @ModelAttribute Libro libro, BindingResult result) {
 		if (result.hasErrors()) {
-			initialiseLibro(model);
-			
+			initialiseLibro(model, autorService);
+
 			return "createLibro";
 		}
 
 		// Validación para asegurarse de que no se creen libros duplicados
 		if (libroService.obtenerLibroPorId(libro.getId()) != null) {
-			initialiseLibro(model);
-			
+			initialiseLibro(model, autorService);
+
 			result.rejectValue("nombre", "error.libro", "Ya existe un libro con ese nombre");
 			return "createLibro";
 		}
-
 		libroService.añadirLibro(libro);
 		return "redirect:/libro/list";
 	}
-	
-	private static void initialiseLibro(Model model) {
+
+	private void initialiseLibro(Model model, AutorService autorService) {
 		model.addAttribute("libro", new Libro());
 		model.addAttribute("tiposDeLibro", List.of(TipoLibro.values()));
+		model.addAttribute("autores", autorService.findAll());
 	}
 
 }
