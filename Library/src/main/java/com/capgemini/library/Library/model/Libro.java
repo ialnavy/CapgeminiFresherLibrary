@@ -66,16 +66,6 @@ public class Libro implements Serializable {
 		this.anyo = anyo;
 	}
 
-	public Libro(String id, String titulo, TipoLibro tipo, String editorial, int anyo, Autor autor) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.tipo = tipo;
-		this.editorial = editorial;
-		this.anyo = anyo;
-		this.autor = autor;
-	}
-
 	public String getId() {
 		return id;
 	}
