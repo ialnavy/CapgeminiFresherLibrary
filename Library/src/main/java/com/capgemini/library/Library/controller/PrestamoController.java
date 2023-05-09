@@ -22,43 +22,39 @@ import com.capgemini.library.Library.service.PrestamoService;
 @RequestMapping("/prestamos")
 public class PrestamoController {
 
-    @Autowired
-    private LectorService lectorService;
+	@Autowired
+	private LectorService lectorService;
 
-    @Autowired
-    private CopiaService copiaService;
+	@Autowired
+	private CopiaService copiaService;
 
-    @Autowired
-    private PrestamoService prestamoService;
+	@Autowired
+	private PrestamoService prestamoService;
 
-    @PostMapping("/realizar")
-    public String realizarPrestamo(
-            @RequestParam("lectorId") String lectorId,
-            @RequestParam("copiaId") String copiaId,
-            Model model) {
+	@PostMapping("/realizar")
+	public String realizarPrestamo(@RequestParam("lectorId") String lectorId, @RequestParam("copiaId") String copiaId,
+			Model model) {
 
-        Lector lector = lectorService.getLectorById(lectorId);
-        Copia copia = copiaService.findById(copiaId);
+		Lector lector = lectorService.getLectorById(lectorId);
+		Copia copia = copiaService.findById(copiaId);
 
-        if (lector != null && copia != null && lectorService.puedeRealizarPrestamo(lector)) {
-            Prestamo prestamo = lectorService.realizarPrestamo(lector, copia);
-            prestamoService.save(prestamo);
-            model.addAttribute("message", "Préstamo realizado con éxito");
-        } else {
-            model.addAttribute("message", "No se pudo realizar el préstamo");
-        }
+		if (lector != null && copia != null && lectorService.puedeRealizarPrestamo(lector)) {
+			Prestamo prestamo = lectorService.realizarPrestamo(lector, copia);
+			prestamoService.save(prestamo);
+			model.addAttribute("message", "Préstamo realizado con éxito");
+		} else {
+			model.addAttribute("message", "No se pudo realizar el préstamo");
+		}
 
-        return "prestamo_result";
-    }
+		return "prestamo_result";
+	}
 
-    
-    // TODO: ACABAR ESTE METODO PARA VER EL LISTADO DE PRESTAMOS ACTIVOS
-//    @GetMapping("/activos")
-//    public String verPrestamosActivos(Model model) {
-//        List<Prestamo> prestamosActivos = prestamoService.getPrestamosActivos();
-//        model.addAttribute("prestamosActivos", prestamosActivos);
-//        return "prestamos_activos";
-//    }
+	@GetMapping("/prestamo/activos/{lectorID}")
+	public String verPrestamosActivos(Model model, @PathVariable(value = "lectorID") String lectorID) {
+		List<Prestamo> prestamosActivos = prestamoService
+				.getPrestamosActivosByLector(lectorService.getLectorById(lectorID));
+		model.addAttribute("prestamosActivos", prestamosActivos);
+		return "prestamos_activos";
+	}
 
-    
 }

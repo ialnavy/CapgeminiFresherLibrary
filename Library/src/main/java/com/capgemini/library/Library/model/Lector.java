@@ -41,27 +41,23 @@ public class Lector implements Serializable {
 	private String direccion;
 
 	@OneToOne
-	private Prestamo prestamo;
-
-	@OneToOne
 	private Multa multa;
+
+	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL)
+	private Set<Prestamo> prestamos = new HashSet<>();
 
 	public Lector() {
 		super();
 	}
 
-	public Lector(String id, Long nSocio, String nombre, String telefono, String direccion, Prestamo prestamo) {
+	public Lector(String id, Long nSocio, String nombre, String telefono, String direccion) {
 		super();
 		this.id = id;
 		this.nSocio = nSocio;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
-		this.prestamo = prestamo;
 	}
-
-	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL)
-	private Set<Prestamo> prestamos = new HashSet<>();
 
 	public Multa multar(int n) {
 		if (this.multa != null) {
@@ -81,7 +77,6 @@ public class Lector implements Serializable {
 	public void setPrestamos(Set<Prestamo> prestamos) {
 		this.prestamos = prestamos;
 	}
-
 
 	public String getId() {
 		return id;
@@ -123,14 +118,6 @@ public class Lector implements Serializable {
 		this.direccion = direccion;
 	}
 
-	public Prestamo getPrestamo() {
-		return prestamo;
-	}
-
-	public void setPrestamo(Prestamo prestamo) {
-		this.prestamo = prestamo;
-	}
-
 	public Multa getMulta() {
 		return multa;
 	}
@@ -138,7 +125,5 @@ public class Lector implements Serializable {
 	public void setMulta(Multa multa) {
 		this.multa = multa;
 	}
-
-
 
 }

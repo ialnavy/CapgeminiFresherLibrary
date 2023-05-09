@@ -34,7 +34,8 @@ public class MultaController {
         multa.setLector(lector);
         multaService.save(multa);
         model.addAttribute("message", "Lector multado con éxito");
-        return "redirect:/multa";
+        model.addAttribute("lectores", lectorService.getAllLectores());
+        return "multa";
     }
 }
 

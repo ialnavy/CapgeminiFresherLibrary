@@ -25,7 +25,10 @@ public class Prestamo implements Serializable {
 	private String id = UUID.randomUUID().toString();
 
 	@Column
-	private Date fechaPrestamo;
+	private Date fechaInicio;
+
+	@Column
+	private Date fechaFin;
 
 	@Column
 	private Date fechaDevolucion;
@@ -42,21 +45,12 @@ public class Prestamo implements Serializable {
 		super();
 	}
 
-	public Prestamo(String id, Date fechaPrestamo, Date fechaDevolucion, Lector lector, Copia copia) {
+	public Prestamo(String id, Date fechaInicio, Date fechaFin, Date fechaDevolucion) {
 		super();
 		this.id = id;
-		this.fechaPrestamo = fechaPrestamo;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 		this.fechaDevolucion = fechaDevolucion;
-		this.lector = lector;
-		this.copia = copia;
-	}
-
-	public Prestamo(Date fechaPrestamo, Date fechaDevolucion, Lector lector, Copia copia) {
-		super();
-		this.fechaPrestamo = fechaPrestamo;
-		this.fechaDevolucion = fechaDevolucion;
-		this.lector = lector;
-		this.copia = copia;
 	}
 
 	public String getId() {
@@ -67,12 +61,20 @@ public class Prestamo implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaPrestamo() {
-		return fechaPrestamo;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
 
-	public void setFechaPrestamo(Date fechaPrestamo) {
-		this.fechaPrestamo = fechaPrestamo;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 	public Date getFechaDevolucion() {
