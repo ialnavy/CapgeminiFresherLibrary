@@ -5,40 +5,53 @@
 	<header th:replace="fragments/header"></header>
 	<main>
 		<form action="#" method="post">
-			<p> <label for="nombre">Nombre:</label> </p>
+			<p>
+				<label for="nombre">Nombre:</label>
+			</p>
 			<input type="text" id="nombre" name="nombre" required /><br>
 
-			<p> <label for="telefono">Teléfono:</label> </p>
+			<p>
+				<label for="telefono">Teléfono:</label>
+			</p>
 			<input type="text" id="telefono" name="telefono" required /><br>
 
-			<p> <label for="direccion">Dirección:</label> </p>
+			<p>
+				<label for="direccion">Dirección:</label>
+			</p>
 			<input type="text" id="direccion" name="direccion" required /><br>
 
-			<p> <label for="copia">Estado de la copia:</label> </p>
+			<p>
+				<label for="copia">Estado de la copia:</label>
+			</p>
 			<select id="selectcopia" th:field="*{copia}">
 				<option
 					th:each="estadoDeCopia : ${T(com.capgemini.library.Library.model.EstadoCopia).values()}"
-					th:value="${estadoDeCopia}" 
-					th:text="${estadoDeCopia}">
-				</option>
+					th:value="${estadoDeCopia}" th:text="${estadoDeCopia}"></option>
 			</select>
-			
+
 			<div>
 				<label for="libro"> Libros </label>
 				<div>
 					<select th:field="*{libros}">
-						<option th:each="libro : ${libro.titulo}"
-								th:text="${libro.tipo}">
+						<option th:each="libro : ${libro.titulo}" th:text="${libro.tipo}">
 					</select>
 				</div>
 			</div>
 
-			<p> <label for="diasPrestamo">Días de préstamo:</label> </p>
-			<input type="number" id="dias" name="dias" min="1" max="30" required /><br>
+			<p>
+				<label for="multaFechaInicio">Fecha de inicio de la multa:</label>
+			</p>
+			<input type="date" id="multaFechaInicio" name="multaFechaInicio"
+				required /><br>
+
+			<p>
+				<label for="multaFechaFin">Fecha de fin de la multa:</label>
+			</p>
+			<input type="date" id="multaFechaFin" name="multaFechaFin" required /><br>
 
 
-			<input type="submit">Enviar /> 
-			<input type="reset">Vaciar datos />
+			<input type="submit">Enviar /> <input type="reset">Vaciar
+			datos />
 		</form>
 	</main>
 	<footer th:replace="fragments/footer"></footer>
