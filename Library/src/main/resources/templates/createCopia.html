@@ -4,26 +4,28 @@
 <body>
     <header th:replace="~{fragments/header}"></header>
     <main>
-    	<form action="#" th:action="@{/copia/create}" th:object="${copia}" method="post">
-	        <p><label for="libro">Libro:</label></p>
-	        <select id="libro" name="libroID" >
-	            <option th:each="iLibro : ${libros}" th:value="${iLibro.id}" th:text="${iLibro.titulo}">-</option>
-	        </select>
+    	<form class="p-3 mb-2 bg-light" action="#" th:action="@{/copia/create}" th:object="${copia}" method="post">
+	        <div class="form-group">
+	            <label for="libro">Libro:</label>
+	            <select class="form-control" id="libro" name="libroID">
+	                <option th:each="iLibro : ${libros}" th:value="${iLibro.id}" th:text="${iLibro.titulo}">-</option>
+	            </select>
+	        </div>
 	        
-	        <p><label for="copia">Estado de la copia:</label></p>
-			<select id="copia" th:field="*{estado}">
-				<option th:each="estadoDeCopia : ${T(com.capgemini.library.Library.model.EstadoCopia).values()}" th:value="${estadoDeCopia}" th:text="${estadoDeCopia}"></option>
-			</select>
+	        <div class="form-group">
+	            <label for="copia">Estado de la copia:</label>
+	            <select class="form-control" id="copia" th:field="*{estado}">
+	                <option th:each="estadoDeCopia : ${T(com.capgemini.library.Library.model.EstadoCopia).values()}" th:value="${estadoDeCopia}" th:text="${estadoDeCopia}"></option>
+	            </select>
+	        </div>
 	        
-	        <p>
-	        	<input type="submit" value="Enviar" />
-	        	<input type="reset" value="Vaciar datos" />
-	        </p>
+	        <div class="form-group">
+	            <input type="submit" class="btn btn-primary" value="Enviar" />
+	            <input type="reset" class="btn btn-secondary" value="Vaciar datos" />
+	        </div>
 	    </form>
     </main>
     <footer th:replace="~{fragments/footer}"></footer>
 </body>
 
 </html>
-
-    

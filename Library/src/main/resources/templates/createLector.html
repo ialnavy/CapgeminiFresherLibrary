@@ -1,31 +1,39 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head}"></head>
+<head th:replace="~{fragments/head}">
+	<meta charset="UTF-8">
+	<title>Título de la página</title>
+
+	<!-- Agregamos las referencias de Bootstrap -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" integrity="sha512-zNcJd+1B9z4e8y2Gk02PnD/4ABapMxKPZbsqJm50t+Dzs2mRnltHJUs1TbxIcYukmLb0Rv40eB1wVpEZgOWE0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
 <body>
 	<header th:replace="~{fragments/header}"></header>
 	<main>
-		<form action="#" th:action="@{/lector/create}" th:object="${lector}" method="post">
-			<p>
+		<form class="p-3 mb-2 bg-light" action="#" th:action="@{/lector/create}" th:object="${lector}" method="post">
+			<div class="form-group">
 				<label for="nSocio">Numero de socio del lector:</label>
-				<input type="text" id="nSocio" th:field="*{nSocio}" />
-			</p>
-			<p>
+				<input type="text" class="form-control" id="nSocio" th:field="*{nSocio}" />
+			</div>
+			<div class="form-group">
 				<label for="nombre">Nombre del lector:</label>
-				<input type="text" id="nombre" th:field="*{nombre}" />
-			</p>
+				<input type="text" class="form-control" id="nombre" th:field="*{nombre}" />
+			</div>
 
-			<p>
+			<div class="form-group">
 				<label for="telefono">Numero de telefono del lector:</label>
-				<input type="text" id="telefono" th:field="*{telefono}" />
-			</p>
+				<input type="text" class="form-control" id="telefono" th:field="*{telefono}" />
+			</div>
 			
-			<p>
+			<div class="form-group">
 				<label for="direccion">Direccion del lector:</label>
-				<input type="text" id="direccion" th:field="*{direccion}" />
-			</p>
+				<input type="text" class="form-control" id="direccion" th:field="*{direccion}" />
+			</div>
 
-			<input type="submit" value="Enviar" /> 
-			<input type="reset" value="Vaciar datos" />
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="Enviar" /> 
+				<input type="reset" class="btn btn-secondary" value="Vaciar datos" />
+			</div>
 		</form>
 	</main>
 	<footer th:replace="~{fragments/footer}"></footer>

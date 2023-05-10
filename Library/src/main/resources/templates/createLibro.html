@@ -4,33 +4,42 @@
 <body>
     <header th:replace="~{fragments/header}"></header>
     <main>
-    	<form action="#" th:action="@{/libro/create}" th:object="${libro}" method="post">
-	        <p><label for="titulo">Título del libro:</label>
-	        <input type="text" id="titulo" th:field="*{titulo}" /></p>
+    	<form class="p-3 mb-2 bg-light" action="#" th:action="@{/libro/create}" th:object="${libro}" method="post">
+	        <div class="form-group">
+	        	<label for="titulo">Título del libro:</label>
+	        	<input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
+	        </div>
 	        
-	        <p><label for="tipo">Tipo del libro:</label></p>
-	        <select id="tipo" th:field="*{tipo}" >
-	            <option th:each="tipoDeLibro : ${T(com.capgemini.library.Library.model.TipoLibro).values()}" th:value="${tipoDeLibro}" th:text="${tipoDeLibro}">-</option>
-	        </select>
+	        <div class="form-group">
+	        	<label for="tipo">Tipo del libro:</label>
+	        	<select class="form-control" id="tipo" th:field="*{tipo}" >
+	            	<option th:each="tipoDeLibro : ${T(com.capgemini.library.Library.model.TipoLibro).values()}" th:value="${tipoDeLibro}" th:text="${tipoDeLibro}">-</option>
+	        	</select>
+	        </div>
 	        
-	        <p><label for="autor">Autor del libro:</label></p>
-	        <select id="autor" name="autorID">
-	            <option th:each="iAutor : ${autores}" th:value="${iAutor.id}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
-	        </select>
+	        <div class="form-group">
+	        	<label for="autor">Autor del libro:</label>
+	        	<select class="form-control" id="autor" name="autorID">
+	            	<option th:each="iAutor : ${autores}" th:value="${iAutor.id}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
+	        	</select>
+	        </div>
 	        
-	        <p><label for="editorial">Editorial:</label>
-	        <input type="text" id="editorial" th:field="*{editorial}" /></p>
+	        <div class="form-group">
+	        	<label for="editorial">Editorial:</label>
+	        	<input type="text" class="form-control" id="editorial" th:field="*{editorial}" />
+	        </div>
 	        
-	        <p><label for="anyo">Año:</label>
-	        <input type="text" id="anyo" th:field="*{anyo}" /></p>
+	        <div class="form-group">
+	        	<label for="anyo">Año:</label>
+	        	<input type="text" class="form-control" id="anyo" th:field="*{anyo}" />
+	        </div>
 	        
-	        <input type="submit" value="Enviar" />
-	        <input type="reset" value="Vaciar datos" />
+	        <div class="form-group">
+	        	<input type="submit" class="btn btn-primary" value="Enviar" />
+	        	<input type="reset" class="btn btn-secondary" value="Vaciar datos" />
+	        </div>
 	    </form>
     </main>
     <footer th:replace="~{fragments/footer}"></footer>
 </body>
-
 </html>
-
-    

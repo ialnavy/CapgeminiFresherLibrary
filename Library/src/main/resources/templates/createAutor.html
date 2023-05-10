@@ -4,27 +4,33 @@
 <body>
 	<header th:replace="~{fragments/header}"></header>
 	<main>
-		<form action="#" th:action="@{/autor/create}" th:object="${autor}" method="post">
-			<p>
-				<label for="nombreAutor">Nombre del autor:</label>
-				<input type="text" id="nombreAutor" th:field="*{nombre}" />
-			</p>
+		<form class="p-3 mb-2 bg-light" action="#" th:action="@{/autor/create}"
+			th:object="${autor}" method="post">
+			
+			<div class="form-group">
+				<label for="nombreAutor" class="form-label">Nombre del
+					autor:</label> <input type="text" class="form-control" id="nombreAutor"
+					th:field="*{nombre}" />
+			</div>
 
-			<p>
-				<label for="nacionalidad">Nacionalidad del autor:</label>
-				<input type="text" id="nacionalidad" th:field="*{nacionalidad}" />
-			</p>
+			<div class="form-group">
+				<label for="nacionalidad" class="form-label">Nacionalidad
+					del autor:</label> <input type="text" class="form-control"
+					id="nacionalidad" th:field="*{nacionalidad}" />
+			</div>
 
-			<p>
-				<label for="fechaNacimiento">Fecha de nacimiento del autor:</label>
-				<input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" />
-			</p>
+			<div class="form-group">
+				<label for="fechaNacimiento" class="form-label">Fecha de
+					nacimiento del autor:</label> <input type="date" class="form-control"
+					id="fechaNacimiento" th:field="*{fechaNacimiento}" />
+			</div>
 
-			<input type="submit" value="Enviar" /> 
-			<input type="reset" value="Vaciar datos" />
+			<div class="form-group">
+	        	<input type="submit" class="btn btn-primary" value="Enviar" />
+	        	<input type="reset" class="btn btn-secondary" value="Vaciar datos" />
+	        </div>
 		</form>
 	</main>
 	<footer th:replace="~{fragments/footer}"></footer>
 </body>
-
 </html>
