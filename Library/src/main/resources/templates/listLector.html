@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+    <header th:replace="~{fragments/header}"></header>
+    <main>
+    	<h2>Listado de lectores</h2>
+    	<table>
+    		<thead>
+                <tr>
+                    <th scope="col" id="numSocio">Socio</th>
+                    <th scope="col" id="nombre">Nombre</th>
+                    <th scope="col" id="telefono">Telefono</th>
+                    <th scope="col" id="direccion">Direccion</th>
+                </tr>
+            </thead>
+            <tbody:block th:each="lector : ${lectores}">
+                <tr>
+                    <td headers="numSocio" th:text="${lector.nSocio}">Numero de Socio -</td>
+                    <td headers="nombre" th:text="${lector.nombre}">Nombre -</td>
+                    <td headers="telefono" th:text="${lector.telefono}">Telefono -</td>
+                    <td headers="direccion" th:text="${lector.direccion}">Direccion -</td>
+                </tr>
+             </tbody:block>
+    	</table>
+    </main>
+    <footer th:replace="~{fragments/footer}"></footer>
+</body>
+
+</html>
+
+    

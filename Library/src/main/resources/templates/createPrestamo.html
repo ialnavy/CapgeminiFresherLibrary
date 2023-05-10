@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+	<header th:replace="~{fragments/header}"></header>
+	<main>
+		<form action="#" th:action="@{/prestamo/create}" method="post">
+		
+			<p><label for="lector">Lector para el prestamo:</label></p>
+			<select id="lector" name="lectorID">
+				<option th:each="iLector : ${lectores}" th:value="${iLector.id}" th:text="${iLector.nSocio}'' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
+			</select>
+
+			<p><label for="fechaInicio">Fecha de inicio del prestamo:</label> 
+			<input type="date" id="fechaInicio" th:field="*{fechaInicio}" /></p>
+
+			<p><label for="fechaFin">Fecha de fin del prestamo:</label> 
+			<input type="date" id="fechaFin" th:field="*{fechaFin}" /></p>
+			
+			<p><label for="copia">Copia del libro para el prestamo:</label></p>
+			<table>
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col" id="libro">Libro</th>
+						<th scope="col" id="estado">Estado de la copia</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="iCopia : ${copias}">
+						<td><input type="radio" name="copiaId" th:value="${iCopia.id}" /></td>
+						<td headers="libro" th:text="${iCopia.libro.titulo}"><a th:href="@{'/libro/' + ${iCopia.libro.id}}" th:alt="@{'Enlace a la descripción del libro' + ${iCopia.libro.titulo}}">Titulo- </a></td>
+						<td headers="estado" th:text="${iCopia.estado}">Estado -</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<input type="submit" value="Enviar" /> 
+			<input type="reset" value="Vaciar datos" />
+			
+		</form>
+	</main>
+	<footer th:replace="~{fragments/footer}"></footer>
+</body>
+
+</html>
