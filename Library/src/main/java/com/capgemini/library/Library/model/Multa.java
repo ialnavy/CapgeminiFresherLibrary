@@ -2,7 +2,6 @@ package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.Column;

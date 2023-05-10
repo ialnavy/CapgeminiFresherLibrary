@@ -41,7 +41,7 @@ public class Lector implements Serializable {
 	private String direccion;
 
 	@OneToOne
-	private Multa multa;
+	private Multa multa = null;
 
 	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL)
 	private Set<Prestamo> prestamos = new HashSet<>();

@@ -15,7 +15,7 @@ import com.capgemini.library.Library.model.Copia;
 import com.capgemini.library.Library.model.Lector;
 import com.capgemini.library.Library.model.Prestamo;
 import com.capgemini.library.Library.service.CopiaService;
-import com.capgemini.library.Library.service.LectorService;
+import com.capgemini.library.Library.service.LectorServiceImp;
 import com.capgemini.library.Library.service.PrestamoService;
 
 @Controller
@@ -23,7 +23,7 @@ import com.capgemini.library.Library.service.PrestamoService;
 public class PrestamoController {
 
 	@Autowired
-	private LectorService lectorService;
+	private LectorServiceImp lectorService;
 
 	@Autowired
 	private CopiaService copiaService;
@@ -31,7 +31,7 @@ public class PrestamoController {
 	@Autowired
 	private PrestamoService prestamoService;
 
-	@PostMapping("/realizar")
+	@PostMapping("/prestamo/create")
 	public String realizarPrestamo(@RequestParam("lectorId") String lectorId, @RequestParam("copiaId") String copiaId,
 			Model model) {
 
@@ -46,7 +46,7 @@ public class PrestamoController {
 			model.addAttribute("message", "No se pudo realizar el préstamo");
 		}
 
-		return "prestamo_result";
+		return "createPrestamo";
 	}
 
 	@GetMapping("/prestamo/activos/{lectorID}")
@@ -54,7 +54,7 @@ public class PrestamoController {
 		List<Prestamo> prestamosActivos = prestamoService
 				.getPrestamosActivosByLector(lectorService.getLectorById(lectorID));
 		model.addAttribute("prestamosActivos", prestamosActivos);
-		return "prestamos_activos";
+		return "listPrestamo";
 	}
 
 }

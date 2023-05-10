@@ -9,34 +9,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.capgemini.library.Library.model.Lector;
 import com.capgemini.library.Library.model.Multa;
-import com.capgemini.library.Library.service.LectorService;
+import com.capgemini.library.Library.service.LectorServiceImp;
 import com.capgemini.library.Library.service.MultaService;
 
 @Controller
 public class MultaController {
 
-    @Autowired
-    private LectorService lectorService;
+	@Autowired
+	private LectorServiceImp lectorService;
 
-    @Autowired
-    private MultaService multaService;
+	@Autowired
+	private MultaService multaService;
 
-    @GetMapping("/multa")
-    public String multaForm(Model model) {
-        model.addAttribute("lectores", lectorService.getAllLectores());
-        return "multa";
-    }
+	@GetMapping("/multa")
+	public String multaForm(Model model) {
+		model.addAttribute("lectores", lectorService.getAllLectores());
+		return "multa";
+	}
 
-    @PostMapping("/multa")
-    public String multarLector(@RequestParam("lectorId") String lectorId, @RequestParam("dias") int dias, Model model) {
-        Lector lector = lectorService.getLectorById(lectorId);
-        Multa multa = lector.multar(dias);
-        multa.setLector(lector);
-        multaService.save(multa);
-        model.addAttribute("message", "Lector multado con éxito");
-        model.addAttribute("lectores", lectorService.getAllLectores());
-        return "multa";
-    }
+	@PostMapping("/multa")
+	public String multarLector(@RequestParam("lectorId") String lectorId, @RequestParam("dias") int dias, Model model) {
+		Lector lector = lectorService.getLectorById(lectorId);
+		Multa multa = lector.multar(dias);
+		multa.setLector(lector);
+		multaService.save(multa);
+		model.addAttribute("message", "Lector multado con éxito");
+		model.addAttribute("lectores", lectorService.getAllLectores());
+		return "multa";
+	}
 }
-
-	
