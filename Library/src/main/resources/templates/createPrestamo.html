@@ -4,11 +4,11 @@
 <body>
 	<header th:replace="~{fragments/header}"></header>
 	<main>
-		<form action="#" th:action="@{/prestamo/create}" method="post">
+		<form action="#" th:action="@{/prestamo/create}" method="post" th:object="${prestamo}">
 		
 			<p><label for="lector">Lector para el prestamo:</label></p>
 			<select id="lector" name="lectorID">
-				<option th:each="iLector : ${lectores}" th:value="${iLector.id}" th:text="${iLector.nSocio}'' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
+				<option th:each="iLector : ${lectores}" th:value="${iLector.id}" th:text="'' + ${iLector.nSocio} + ' ' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
 			</select>
 
 			<p><label for="fechaInicio">Fecha de inicio del prestamo:</label> 
@@ -28,15 +28,15 @@
 				</thead>
 				<tbody>
 					<tr th:each="iCopia : ${copias}">
-						<td><input type="radio" name="copiaId" th:value="${iCopia.id}" /></td>
-						<td headers="libro" th:text="${iCopia.libro.titulo}"><a th:href="@{'/libro/' + ${iCopia.libro.id}}" th:alt="@{'Enlace a la descripción del libro' + ${iCopia.libro.titulo}}">Titulo- </a></td>
+						<td><input type="radio" name="copiaID" th:value="${iCopia.id}" /></td>
+						<td headers="libro" th:text="${iCopia.libro.titulo}"><a th:href="@{'/libro/' + ${iCopia.libro.id}}" th:alt="@{'Enlace a la descripción del libro ' + ${iCopia.libro.titulo}}">Titulo- </a></td>
 						<td headers="estado" th:text="${iCopia.estado}">Estado -</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<input type="submit" value="Enviar" /> 
-			<input type="reset" value="Vaciar datos" />
+			<p><input type="submit" value="Enviar" />
+			<input type="reset" value="Vaciar datos" /></p>
 			
 		</form>
 	</main>

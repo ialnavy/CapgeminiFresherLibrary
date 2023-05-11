@@ -9,7 +9,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -27,15 +26,13 @@ public class Prestamo implements Serializable {
 	private Date fechaInicio;
 	@Column
 	private Date fechaFin;
-	@Column(nullable=true)
+	@Column(nullable = true)
 	private Date fechaDevolucion;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "lector_id", referencedColumnName = "id")
 	private Lector lector;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "copia_id", referencedColumnName = "id")
 	private Copia copia;
 
 	public Prestamo() {

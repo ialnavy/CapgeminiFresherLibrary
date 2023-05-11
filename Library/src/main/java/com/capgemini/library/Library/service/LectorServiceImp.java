@@ -11,14 +11,21 @@ import com.capgemini.library.Library.model.Copia;
 import com.capgemini.library.Library.model.Lector;
 import com.capgemini.library.Library.model.Multa;
 import com.capgemini.library.Library.model.Prestamo;
+import com.capgemini.library.Library.repository.CopiaRepository;
 import com.capgemini.library.Library.repository.LectorRepository;
-
+import com.capgemini.library.Library.repository.PrestamoRepository;
 
 @Service
-public class LectorServiceImp implements LectorService{
+public class LectorServiceImp implements LectorService {
+
+	@Autowired
+	private CopiaRepository copiaRepository;
 
 	@Autowired
 	private LectorRepository lectorRepository;
+
+	@Autowired
+	private PrestamoRepository prestamoRepository;
 
 	public Lector save(Lector lector) {
 		return lectorRepository.save(lector);
@@ -40,9 +47,7 @@ public class LectorServiceImp implements LectorService{
 		lectorRepository.deleteById(id);
 	}
 
-	public Prestamo realizarPrestamo(Lector lector, Copia copia) {
-		// (Verificar si el lector puede tomar un nuevo préstamo)
-
+	public String realizarPrestamo(Lector lector, Copia copia) {
 		Prestamo prestamo = new Prestamo();
 
 		Date fechaActual = new Date(System.currentTimeMillis());
@@ -52,7 +57,21 @@ public class LectorServiceImp implements LectorService{
 		Date fechaDevolucion = new Date(calendar.getTimeInMillis());
 		prestamo.setFechaDevolucion(fechaDevolucion);
 
-		return prestamo;
+//		Lector lector = lectorRepository.findById(lectorID).orElse(null);
+//		Copia copia = copiaRepository.findById(copiaID).orElse(null);
+
+		prestamo.setLector(lector);
+		prestamo.setCopia(copia);
+
+		prestamoRepository.save(prestamo);
+
+//		lector.getPrestamos().add(prestamo);
+//		copia.getPrestamos().add(prestamo);
+//		
+//		lector = lectorRepository.save(lector);
+//		copia = copiaRepository.save(copia);
+
+		return prestamo.getId();
 	}
 
 	public boolean puedeRealizarPrestamo(Lector lector) {
