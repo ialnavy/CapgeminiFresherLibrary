@@ -70,7 +70,7 @@ public class CopiaController {
 		}
 		copia.setEstado(copiaUpdated.getEstado());
 //		copia.setLibro(copiaUpdated.getLibro());
-		copia.setPrestamos(copiaUpdated.getPrestamos());
+		copia.setPrestamo(copiaUpdated.getPrestamo());
 		return ResponseEntity.ok(copiaService.save(copia));
 	}
 }

@@ -1,10 +1,12 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +31,8 @@ public class Autor implements Serializable {
 	private String nacionalidad;
 
 	@Column
-	private Date fechaNacimiento;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaNacimiento;
 
 	@OneToMany
 	private Set<Libro> obras = new HashSet<>();
@@ -38,7 +41,7 @@ public class Autor implements Serializable {
 		super();
 	}
 
-	public Autor(String id, String nombre, String nacionalidad, Date fechaNacimiento) {
+	public Autor(String id, String nombre, String nacionalidad, LocalDate fechaNacimiento) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -46,7 +49,7 @@ public class Autor implements Serializable {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Autor(String nombre, String nacionalidad, Date fechaNacimiento) {
+	public Autor(String nombre, String nacionalidad, LocalDate fechaNacimiento) {
 		super();
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
@@ -77,11 +80,11 @@ public class Autor implements Serializable {
 		this.nacionalidad = nacionalidad;
 	}
 
-	public Date getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

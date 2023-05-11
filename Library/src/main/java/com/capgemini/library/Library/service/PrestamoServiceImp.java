@@ -1,6 +1,5 @@
 package com.capgemini.library.Library.service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +45,7 @@ public class PrestamoServiceImp implements PrestamoService {
 	 */
 	public void verificarPrestamosYMultas() {
 		for (Prestamo prestamo : prestamoRepository.findAll()) {
-			if (prestamo.getFechaFin().toLocalDate().isBefore(LocalDate.now())) {
+			if (prestamo.getFechaFin().isBefore(LocalDate.now())) {
 				Lector lector = prestamo.getLector();
 				Multa multa = lector.getMulta();
 
@@ -57,7 +56,7 @@ public class PrestamoServiceImp implements PrestamoService {
 				 * Ha devuelto el libro y sí hay multa. Si la multa ha caducado, se le retira.
 				 */
 				if (prestamo.getFechaDevolucion() != null && multa != null) {
-					if (multa.getfFin().toLocalDate().isBefore(LocalDate.now()))
+					if (multa.getfFin().isBefore(LocalDate.now()))
 						lector.setMulta(null);
 				}
 
@@ -66,8 +65,8 @@ public class PrestamoServiceImp implements PrestamoService {
 				 */
 				if (prestamo.getFechaDevolucion() == null && multa == null) {
 					multa = new Multa();
-					multa.setfInicio(Date.valueOf(LocalDate.now()));
-					multa.setfFin(Date.valueOf(LocalDate.now().plusDays(2)));
+					multa.setfInicio(LocalDate.now());
+					multa.setfFin(LocalDate.now().plusDays(2));
 					multa.setLector(prestamo.getLector());
 					prestamo.getLector().setMulta(multa);
 
@@ -79,7 +78,7 @@ public class PrestamoServiceImp implements PrestamoService {
 				 * No ha devuelto el libro y sí hay multa. Se le incrementa multa.
 				 */
 				if (prestamo.getFechaDevolucion() == null && multa != null) {
-					multa.setfFin(Date.valueOf(multa.getfFin().toLocalDate().plusDays(2)));
+					multa.setfFin(multa.getfFin().plusDays(2));
 
 					multa.setLector(prestamo.getLector());
 					prestamo.getLector().setMulta(multa);

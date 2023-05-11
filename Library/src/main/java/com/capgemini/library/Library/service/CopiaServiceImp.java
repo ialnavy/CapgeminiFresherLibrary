@@ -11,23 +11,27 @@ import com.capgemini.library.Library.repository.CopiaRepository;
 @Service
 public class CopiaServiceImp implements CopiaService {
 
-    @Autowired
-    private CopiaRepository copiaRepository;
+	@Autowired
+	private CopiaRepository copiaRepository;
 
-    public List<Copia> findAll() {
-        return (List<Copia>) copiaRepository.findAll();
-    }
+	public List<Copia> findAll() {
+		return (List<Copia>) copiaRepository.findAll();
+	}
 
-    public Copia findById(String id) {
-        return copiaRepository.findById(id).orElse(null);
-    }
+	public List<Copia> findAllNoAlquiladas() {
+		return (List<Copia>) copiaRepository.findByPrestamo(null);
+	}
 
-    public Copia save(Copia copia) {
-        return copiaRepository.save(copia);
-    }
+	public Copia findById(String id) {
+		return copiaRepository.findById(id).orElse(null);
+	}
 
-    public void deleteById(String id) {
-        copiaRepository.deleteById(id);
-    }
+	public Copia save(Copia copia) {
+		return copiaRepository.save(copia);
+	}
+
+	public void deleteById(String id) {
+		copiaRepository.deleteById(id);
+	}
 
 }

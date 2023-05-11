@@ -60,7 +60,7 @@ public class PrestamoController {
 		}
 
 //		String prestamoID = 
-		lectorService.realizarPrestamo(lector, copia);
+		lectorService.realizarPrestamo(lector.getId(), copia.getId());
 
 		model.addAttribute("message", "Préstamo realizado con éxito");
 
@@ -79,7 +79,7 @@ public class PrestamoController {
 	private static void initialisePrestamo(Model model, LectorService lectorService, CopiaService copiaService) {
 		model.addAttribute("prestamo", new Prestamo());
 		model.addAttribute("lectores", lectorService.getAllLectores());
-		model.addAttribute("copias", copiaService.findAll());
+		model.addAttribute("copias", copiaService.findAllNoAlquiladas());
 	}
 
 }

@@ -2,7 +2,6 @@ package com.capgemini.library.Library.service;
 
 import java.util.List;
 
-import com.capgemini.library.Library.model.Copia;
 import com.capgemini.library.Library.model.Lector;
 
 public interface LectorService {
@@ -15,7 +14,7 @@ public interface LectorService {
 
 	public void deleteLector(String id);
 
-	public String realizarPrestamo(Lector lector, Copia copia);
+	public String realizarPrestamo(String lectorID, String copiaID);
 
 	public boolean puedeRealizarPrestamo(Lector lector);
 

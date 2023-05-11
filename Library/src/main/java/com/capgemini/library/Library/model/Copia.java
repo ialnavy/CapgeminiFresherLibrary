@@ -1,8 +1,6 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
@@ -13,7 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,8 +30,8 @@ public class Copia implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Libro libro;
 
-	@OneToMany(mappedBy = "copia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Prestamo> prestamos = new HashSet<>();
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Prestamo prestamo;
 
 	public Copia() {
 		super();
@@ -74,12 +72,12 @@ public class Copia implements Serializable {
 		this.libro = libro;
 	}
 
-	public Set<Prestamo> getPrestamos() {
-		return prestamos;
+	public Prestamo getPrestamo() {
+		return prestamo;
 	}
 
-	public void setPrestamos(Set<Prestamo> prestamos) {
-		this.prestamos = prestamos;
+	public void setPrestamo(Prestamo prestamo) {
+		this.prestamo = prestamo;
 	}
 
 }

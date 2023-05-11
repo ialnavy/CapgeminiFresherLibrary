@@ -1,8 +1,10 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,12 +24,18 @@ public class Prestamo implements Serializable {
 	@Id
 	@Column
 	private String id = UUID.randomUUID().toString();
+
 	@Column
-	private Date fechaInicio;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaInicio;
+
 	@Column
-	private Date fechaFin;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaFin;
+
 	@Column(nullable = true)
-	private Date fechaDevolucion;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaDevolucion;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Lector lector;
@@ -39,7 +47,7 @@ public class Prestamo implements Serializable {
 		super();
 	}
 
-	public Prestamo(String id, Date fechaInicio, Date fechaFin) {
+	public Prestamo(String id, LocalDate fechaInicio, LocalDate fechaFin) {
 		super();
 		this.id = id;
 		this.fechaInicio = fechaInicio;
@@ -54,19 +62,19 @@ public class Prestamo implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public Date getFechaFin() {
+	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(LocalDate fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -86,11 +94,11 @@ public class Prestamo implements Serializable {
 		this.copia = copia;
 	}
 
-	public Date getFechaDevolucion() {
+	public LocalDate getFechaDevolucion() {
 		return fechaDevolucion;
 	}
 
-	public void setFechaDevolucion(Date fechaDevolucion) {
+	public void setFechaDevolucion(LocalDate fechaDevolucion) {
 		this.fechaDevolucion = fechaDevolucion;
 	}
 

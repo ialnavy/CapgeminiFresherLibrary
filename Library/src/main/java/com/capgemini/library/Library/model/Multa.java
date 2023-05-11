@@ -1,8 +1,10 @@
 package com.capgemini.library.Library.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,10 +23,12 @@ public class Multa implements Serializable {
 	private String id = UUID.randomUUID().toString();
 
 	@Column
-	private Date fInicio;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fInicio;
 
 	@Column
-	private Date fFin;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fFin;
 
 	@OneToOne
 	private Lector lector;
@@ -33,7 +37,7 @@ public class Multa implements Serializable {
 		super();
 	}
 
-	public Multa(String id, Date fInicio, Date fFin, Lector lector) {
+	public Multa(String id, LocalDate fInicio, LocalDate fFin, Lector lector) {
 		super();
 		this.id = id;
 		this.fInicio = fInicio;
@@ -41,7 +45,7 @@ public class Multa implements Serializable {
 		this.lector = lector;
 	}
 
-	public Multa(Date fInicio, Date fFin, Lector lector) {
+	public Multa(LocalDate fInicio, LocalDate fFin, Lector lector) {
 		super();
 		this.fInicio = fInicio;
 		this.fFin = fFin;
@@ -56,19 +60,19 @@ public class Multa implements Serializable {
 		this.id = id;
 	}
 
-	public Date getfInicio() {
+	public LocalDate getfInicio() {
 		return fInicio;
 	}
 
-	public void setfInicio(Date fInicio) {
+	public void setfInicio(LocalDate fInicio) {
 		this.fInicio = fInicio;
 	}
 
-	public Date getfFin() {
+	public LocalDate getfFin() {
 		return fFin;
 	}
 
-	public void setfFin(Date fFin) {
+	public void setfFin(LocalDate fFin) {
 		this.fFin = fFin;
 	}
 
