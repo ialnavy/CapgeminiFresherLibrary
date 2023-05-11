@@ -4,19 +4,22 @@
 <body>
 	<header th:replace="~{fragments/header}"></header>
 	<main>
-		<form action="#" th:action="@{/prestamo/create}" method="post" th:object="${prestamo}">
-		
-			<p><label for="lector">Lector para el prestamo:</label></p>
-			<select id="lector" name="lectorID">
-				<option th:each="iLector : ${lectores}" th:value="${iLector.id}" th:text="'' + ${iLector.nSocio} + ' ' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
-			</select>
-
-			<p><label for="fechaInicio">Fecha de inicio del prestamo:</label> 
-			<input type="date" id="fechaInicio" th:field="*{fechaInicio}" /></p>
+		<form class="p-3 mb-2 bg-light" action="#" th:action="@{/prestamo/create}" method="post" th:object="${prestamo}">
+			<div class="form-group">
+				<label for="lector">Lector para el prestamo:</label>
+				<select class="form-control" id="lector" name="lectorID">
+					<option th:each="iLector : ${lectores}" th:value="${iLector.id}" th:text="'' + ${iLector.nSocio} + ' ' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="fechaInicio">Fecha de inicio del prestamo:</label> 
+				<input type="date" class="form-control" id="fechaInicio" th:field="*{fechaInicio}" />
+			</div>
 			
 			<p><label for="copia">Copia del libro para el prestamo:</label></p>
-			<table>
-				<thead>
+			<table class="table table-striped table-hover">
+				<thead class="thead-dark">
 					<tr>
 						<th scope="col"></th>
 						<th scope="col" id="libro">Libro</th>
@@ -32,8 +35,10 @@
 				</tbody>
 			</table>
 
-			<p><input type="submit" value="Enviar" />
-			<input type="reset" value="Vaciar datos" /></p>
+			<div class="form-group text-center">
+				<input type="submit" value="Enviar" />
+				<input type="reset" value="Vaciar datos" />
+			</div>
 			
 		</form>
 	</main>
