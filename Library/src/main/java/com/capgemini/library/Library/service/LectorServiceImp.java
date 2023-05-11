@@ -46,8 +46,7 @@ public class LectorServiceImp implements LectorService {
 		lectorRepository.deleteById(id);
 	}
 
-	public String realizarPrestamo(String lectorID, String copiaID) {
-		Prestamo prestamo = new Prestamo();
+	public String realizarPrestamo(String lectorID, String copiaID, Prestamo prestamo) {
 		prestamo.setFechaFin(LocalDate.now().plusDays(30));
 
 		Lector lector = lectorRepository.findById(lectorID).orElse(null);

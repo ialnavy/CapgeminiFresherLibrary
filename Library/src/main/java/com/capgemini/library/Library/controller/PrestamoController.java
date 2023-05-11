@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +37,8 @@ public class PrestamoController {
 	}
 
 	@PostMapping("/prestamo/create")
-	public String realizarPrestamo(@RequestParam("lectorID") String lectorId, @RequestParam("copiaID") String copiaId,
-			Model model) {
+	public String realizarPrestamo(@ModelAttribute Prestamo prestamo, @RequestParam("lectorID") String lectorId,
+			@RequestParam("copiaID") String copiaId, Model model) {
 		Lector lector = lectorService.getLectorById(lectorId);
 		if (lector == null) {
 			model.addAttribute("message", "No se pudo realizar el préstamo porque el lector con el ID dado no existe");
@@ -60,7 +61,7 @@ public class PrestamoController {
 		}
 
 //		String prestamoID = 
-		lectorService.realizarPrestamo(lector.getId(), copia.getId());
+		lectorService.realizarPrestamo(lector.getId(), copia.getId(), prestamo);
 
 		model.addAttribute("message", "Préstamo realizado con éxito");
 

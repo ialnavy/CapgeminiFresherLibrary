@@ -3,6 +3,7 @@ package com.capgemini.library.Library.service;
 import java.util.List;
 
 import com.capgemini.library.Library.model.Lector;
+import com.capgemini.library.Library.model.Prestamo;
 
 public interface LectorService {
 
@@ -14,7 +15,7 @@ public interface LectorService {
 
 	public void deleteLector(String id);
 
-	public String realizarPrestamo(String lectorID, String copiaID);
+	public String realizarPrestamo(String lectorID, String copiaID, Prestamo prestamoPOJO);
 
 	public boolean puedeRealizarPrestamo(Lector lector);
 
