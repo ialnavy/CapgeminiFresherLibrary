@@ -1,6 +1,6 @@
 package com.capgemini.library.Library.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,11 +69,21 @@ public class PrestamoController {
 		return "createPrestamo";
 	}
 
+	@GetMapping("/prestamo/list")
+	public String getPrestamos(Model model) {
+		model.addAttribute("prestamos", prestamoService.findAll());
+		return "listPrestamo";
+	}
+
 	@GetMapping("/prestamo/list/{lectorID}")
-	public String verPrestamosActivos(Model model, @PathVariable(value = "lectorID") String lectorID) {
-		List<Prestamo> prestamosActivos = prestamoService
-				.getPrestamosActivosByLector(lectorService.getLectorById(lectorID));
-		model.addAttribute("prestamosActivos", prestamosActivos);
+	public String getPrestamosByLector(Model model, @PathVariable(value = "lectorID") String lectorID) {
+		Lector lector = lectorService.getLectorById(lectorID);
+		if (lector == null) {
+			model.addAttribute("message", "No existe ningún lector con el ID dado");
+			model.addAttribute("prestamos", new ArrayList<Prestamo>());
+			return "listPrestamo";
+		}
+		model.addAttribute("prestamos", prestamoService.getPrestamosActivosByLector(lector));
 		return "listPrestamo";
 	}
 

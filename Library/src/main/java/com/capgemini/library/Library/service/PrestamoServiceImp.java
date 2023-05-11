@@ -22,6 +22,11 @@ public class PrestamoServiceImp implements PrestamoService {
 	@Autowired
 	private PrestamoRepository prestamoRepository;
 
+	@Override
+	public List<Prestamo> findAll() {
+		return (List<Prestamo>) prestamoRepository.findAll();
+	}
+
 	public Prestamo save(Prestamo prestamo) {
 		Lector lector = prestamo.getLector();
 		if (lector == null)

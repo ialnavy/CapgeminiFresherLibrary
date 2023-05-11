@@ -6,10 +6,12 @@ import com.capgemini.library.Library.model.Lector;
 import com.capgemini.library.Library.model.Prestamo;
 
 public interface PrestamoService {
-	
+
+	public List<Prestamo> findAll();
+
 	public Prestamo save(Prestamo prestamo);
-	
+
 	public void verificarPrestamosYMultas();
-	
+
 	public List<Prestamo> getPrestamosActivosByLector(Lector lector);
 }
