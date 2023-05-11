@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.capgemini.library.Library.model.Copia;
@@ -19,7 +18,6 @@ import com.capgemini.library.Library.service.LectorServiceImp;
 import com.capgemini.library.Library.service.PrestamoService;
 
 @Controller
-@RequestMapping("/prestamos")
 public class PrestamoController {
 
 	@Autowired
@@ -49,7 +47,7 @@ public class PrestamoController {
 		return "createPrestamo";
 	}
 
-	@GetMapping("/prestamo/activos/{lectorID}")
+	@GetMapping("/prestamo/list/{lectorID}")
 	public String verPrestamosActivos(Model model, @PathVariable(value = "lectorID") String lectorID) {
 		List<Prestamo> prestamosActivos = prestamoService
 				.getPrestamosActivosByLector(lectorService.getLectorById(lectorID));
