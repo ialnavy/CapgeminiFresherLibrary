@@ -38,17 +38,17 @@ public class AuthController {
 		} catch (UsernameNotFoundException e) {
 			initialiseLector(model);
 			result.rejectValue("username", "error.user", "No existe ningún usuario con el nombre de usuario dado");
-			return "login";
+			return "redirect:/";
 		}
 
 		if (!userDetails.getPassword().equals(encoder.encode(user.getPassword()))) {
 			initialiseLector(model);
 			result.rejectValue("password", "error.user", "La contraseña no es correcta");
-			return "login";
+			return "redirect:/";
 		}
 
 		initialiseLector(model);
-		return "login";
+		return "redirect:/";
 	}
 
 	@GetMapping("/register")
