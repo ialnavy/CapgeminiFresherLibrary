@@ -1,8 +1,12 @@
 package com.capgemini.library.Library.service;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,16 +40,13 @@ public class MyUserDetailsService implements UserDetailsService {
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // (1)
-		// 1. Load the user from the users table by username. If not found, throw
-		// UsernameNotFoundException.
-		Optional<User> optUser = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-		if (optUser.isEmpty())
-			throw new UsernameNotFoundException("User '" + username + "' does not exist");
+		Set<GrantedAuthority> authorities = List.of(Role.values()).stream()
+				.map((role) -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toSet());
 
-		User user = optUser.get();
-
-		// 2. Convert/wrap the user to a UserDetails object and return it.
-		return user;
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+				authorities);
 	}
 }
