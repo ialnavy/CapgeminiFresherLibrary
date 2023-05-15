@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.capgemini.library.Library.model.User;
 import com.capgemini.library.Library.service.MyUserDetailsService;
@@ -26,7 +27,7 @@ public class AuthController {
 	@Autowired
 	PasswordEncoder encoder;
 
-	@GetMapping("/login")
+	@RequestMapping("/login")
 	public String getLogin(Model model) {
 		initialiseLogin(model);
 		return "login";
