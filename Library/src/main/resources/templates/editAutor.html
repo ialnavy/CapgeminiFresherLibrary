@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+	<header th:replace="~{fragments/header}"></header>
+	<main>
+		<h2>Edición de autores</h2>
+		<form class="p-3 mb-2 bg-light" action="#" th:action="@{/autor/edit}" th:object="${autor}" method="post">
+				
+				<div class="form-group">
+					<p>
+						<label for="autor" class="form-label">Autor que editar:</label>
+					</p>
+					<select class="form-control" id="autor" name="autorID">
+		            	<option th:each="iAutor : ${todosLosAutores}" th:value="${iAutor.id}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
+		        	</select>
+				</div>
+				
+				<div class="form-group">
+					<p>
+						<label for="nombreAutor" class="form-label">Nombre del autor:</label>
+						<input type="text" class="form-control" id="nombreAutor" th:field="*{nombre}" />
+					</p>
+				</div>
+	
+				<div class="form-group">
+					<p>
+						<label for="nacionalidad" class="form-label">Nacionalidad del autor:</label>
+						<input type="text" class="form-control" id="nacionalidad" th:field="*{nacionalidad}" />
+					</p>
+				</div>
+	
+				<div class="form-group">
+					<p>
+						<label for="fechaNacimiento" class="form-label">Fecha de nacimiento del autor:</label> 
+						<input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}" />
+					</p>
+				</div>
+	
+				<div class="form-group">
+		        	<p>
+		        		<input type="submit" class="btn btn-primary" value="Enviar" />
+		        		<input type="reset" class="btn btn-secondary" value="Vaciar datos" />
+		        	</p>
+		        </div>
+			</form>
+			<p>Los campos sin especificar no serán modificados.</p>
+	</main>
+	<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

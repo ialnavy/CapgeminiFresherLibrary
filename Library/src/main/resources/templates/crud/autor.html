@@ -41,7 +41,7 @@
 	                    <th scope="col" id="nombreAutor">Nombre</th>
 	                    <th scope="col" id="nacionalidad">Nacionalidad</th>
 	                    <th scope="col" id="fechaNacimiento">Fecha de Nacimiento</th>
-	                    <th scope="col" id="editLink">Editar</th>
+	                    <th scope="col" id="deleteLink">Eliminar</th>
 	                </tr>
 	            </thead>
 	            <tbody:block th:each="autor : ${todosLosAutores}">
@@ -49,13 +49,13 @@
 	                    <td headers="nombreAutor" th:text="${autor.nombre}">Titulo -</td>
 	                    <td headers="nacionalidad" th:text="${autor.nacionalidad}">Tipo -</td>
 	                    <td headers="fechaNacimiento" th:text="${autor.fechaNacimiento}">Editorial -</td>
-	                    <td headers="editLink"><a th:href="'/autor/edit/' + ${autor.id}" th:alt="'Enlace a la edición del autor' + ${autor.nombre}" >Editar</a></td>
+	                    <td headers="deleteLink"><a th:href="'/autor/delete/' + ${autor.id}" th:alt="'Enlace a la eliminación del autor' + ${autor.nombre}" >Eliminar</a></td>
 	                </tr>
 	             </tbody:block>
 	    	</table>
 		</section>
 		<section>
-			<h3>Edición de autores</h3>
+			<h3>Editar autor</h3>
 			<form class="p-3 mb-2 bg-light" action="#" th:action="@{/autor/edit}" th:object="${autor}" method="post">
 				
 				<div class="form-group">
@@ -95,7 +95,7 @@
 		        	</p>
 		        </div>
 			</form>
-			<p>Los campos sin especificar no serán modificados.</p>
+			<p>En la edición, los campos sin especificar no serán modificados.</p>
 		</section>
 	</main>
 	<footer th:replace="~{fragments/footer}"></footer>

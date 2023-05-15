@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+    <header th:replace="~{fragments/header}"></header>
+    <main>
+    	<h2>Gestión de libros</h2>
+    	<section>
+    		<h3>Añadir libro</h3>
+    		<form class="p-3 mb-2 bg-light" action="#" th:action="@{/libro/create}" th:object="${libro}" method="post">
+		        <div class="form-group">
+		        	<p>
+		        		<label for="titulo">Título del libro:</label>
+		        		<input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
+		        	</p>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p><label for="tipo">Tipo del libro:</label></p>
+		        	<select class="form-control" id="tipo" th:field="*{tipo}" >
+		            	<option th:each="tipoDeLibro : ${T(com.capgemini.library.model.TipoLibro).values()}" th:value="${tipoDeLibro}" th:text="${tipoDeLibro}">-</option>
+		        	</select>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p><label for="autor">Autor del libro:</label></p>
+		        	<select class="form-control" id="autor" name="autorID">
+		            	<option th:each="iAutor : ${autores}" th:value="${iAutor.id}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
+		        	</select>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p>
+		        		<label for="editorial">Editorial:</label>
+		        		<input type="text" class="form-control" id="editorial" th:field="*{editorial}" />
+		        	</p>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p>
+		        		<label for="anyo">Año:</label>
+		        		<input type="text" class="form-control" id="anyo" th:field="*{anyo}" />
+		        	</p>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p>
+		        		<input type="submit" class="btn btn-primary" value="Enviar" />
+		        		<input type="reset" class="btn btn-secondary" value="Vaciar datos" />
+		        	</p>
+		        </div>
+		    </form>
+    	</section>
+    	<section>
+    		<h3>Listado de libros</h3>
+    		<div class="table-responsive">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th scope="col" id="titulo">Título</th>
+							<th scope="col" id="tipo">Tipo de libro</th>
+							<th scope="col" id="editorial">Editorial</th>
+							<th scope="col" id="anyo">Año</th>
+							<th scope="col" id="autor">Autor</th>
+							<th scope="col" id="deleteLink">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody:block th:each="libro : ${todosLosLibros}">
+						<tr>
+							<td headers="titulo" th:text="${libro.titulo}">Titulo -</td>
+							<td headers="tipo" th:text="${libro.tipo}">Tipo -</td>
+							<td headers="editorial" th:text="${libro.editorial}">Editorial -</td>
+							<td headers="anyo" th:text="${libro.anyo}">Año -</td>
+							<td headers="autor" th:text="${libro.autor ne null} ? '' + ${libro.autor.nombre} + ' (' + ${libro.autor.nacionalidad} + ', ' + ${libro.autor.fechaNacimiento} + ')' : 'Anónimo'">Autor -</td>
+							<td headers="deleteLink"><a th:href="'/libro/delete/' + ${libro.id}" th:alt="'Enlace a la eliminación del libro' + ${libro.titulo}" >Eliminar</a></td>
+						</tr>
+					</tbody:block>
+				</table>
+			</div>
+    	</section>
+    	<section>
+    		<h3>Editar libro</h3>
+    		<form class="p-3 mb-2 bg-light" action="#" th:action="@{/libro/create}" th:object="${libro}" method="post">
+    		
+    			<div class="form-group">
+					<p>
+						<label for="libro" class="form-label">Libro que editar:</label>
+					</p>
+					<select class="form-control" id="libro" name="libroID">
+		            	<option th:each="iLibro : ${todosLosLibros}" th:value="${iLibro.id}" th:text="'' + ${iLibro.titulo} + ' (tipo ' + ${iLibro.tipo} + ', editorial ' + ${iLibro.editorial} + ', año ' + ${iLibro.anyo} + ')'">-</option>
+		        	</select>
+				</div>
+				
+		        <div class="form-group">
+		        	<p>
+		        		<label for="titulo">Título del libro:</label>
+		        		<input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
+		        	</p>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p><label for="tipo">Tipo del libro:</label></p>
+		        	<select class="form-control" id="tipo" th:field="*{tipo}" >
+		            	<option th:each="tipoDeLibro : ${T(com.capgemini.library.model.TipoLibro).values()}" th:value="${tipoDeLibro}" th:text="${tipoDeLibro}">-</option>
+		        	</select>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p><label for="autor">Autor del libro:</label></p>
+		        	<select class="form-control" id="autor" name="autorID">
+		            	<option th:each="iAutor : ${autores}" th:value="${iAutor.id}" th:text="'' + ${iAutor.nombre} + ' (' + ${iAutor.nacionalidad} + ', ' + ${iAutor.fechaNacimiento} + ')'">-</option>
+		        	</select>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p>
+		        		<label for="editorial">Editorial:</label>
+		        		<input type="text" class="form-control" id="editorial" th:field="*{editorial}" />
+		        	</p>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p>
+		        		<label for="anyo">Año:</label>
+		        		<input type="text" class="form-control" id="anyo" th:field="*{anyo}" />
+		        	</p>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<p>
+		        		<input type="submit" class="btn btn-primary" value="Enviar" />
+		        		<input type="reset" class="btn btn-secondary" value="Vaciar datos" />
+		        	</p>
+		        </div>
+		    </form>
+		    <p>En la edición, los campos sin especificar no serán modificados.</p>
+    	</section>
+    </main>
+    <footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>
