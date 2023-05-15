@@ -42,7 +42,7 @@ public class Libro implements Serializable {
 	@JoinColumn(name = "autor_id")
 	private Autor autor;
 
-	@OneToMany
+	@OneToMany(mappedBy = "libro")
 	private Set<Copia> ejemplar = new HashSet<>();
 
 	public Libro() {

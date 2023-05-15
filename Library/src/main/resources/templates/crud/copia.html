@@ -40,7 +40,7 @@
 	                    <th scope="col" id="deleteLink">Eliminar</th>
 	                </tr>
 	            </thead>
-	            <tbody:block th:each="iCopia : ${copias}">
+	            <tbody:block th:each="iCopia : ${todasLasCopias}">
 	                <tr>
 	                    <td headers="libro" th:text="${iCopia.libro.titulo}">Título</td>
 	                    <td headers="estado" th:text="${iCopia.estado}" class="text-capitalize">Estado</td>

@@ -59,12 +59,11 @@ public class CopiaController {
 			System.err.println(se.getMessage());
 		}
 
-		return "redirect:/libro";
+		return "redirect:/copia";
 	}
 
 	@PostMapping("/copia/edit")
-	public String editCopia(Model model, @ModelAttribute Copia pojo, @RequestParam("copiaID") String copiaID,
-			@RequestParam("libroID") String libroID) {
+	public String editCopia(Model model, @ModelAttribute Copia pojo, @RequestParam("copiaID") String copiaID) {
 		pojo.setId(copiaID);
 		try {
 			copiaService.update(pojo);
@@ -72,19 +71,13 @@ public class CopiaController {
 			System.err.println(se.getMessage());
 		}
 
-		try {
-			copiaService.linkCopiaToLibro(pojo.getId(), libroID);
-		} catch (ServiceException se) {
-			System.err.println(se.getMessage());
-		}
-
-		return "redirect:/libro";
+		return "redirect:/copia";
 	}
 
 	@GetMapping("/copia/delete/{copiaID}")
-	public String deleteLibro(Model model, @PathVariable(value = "copiaID") String libroID) {
+	public String deleteCopia(Model model, @PathVariable(value = "copiaID") String copiaID) {
 		try {
-			copiaService.deleteById(libroID);
+			copiaService.deleteById(copiaID);
 		} catch (ServiceException se) {
 			System.err.println(se.getMessage());
 		}
