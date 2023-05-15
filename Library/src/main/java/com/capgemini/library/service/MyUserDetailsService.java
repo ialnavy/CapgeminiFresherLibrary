@@ -1,5 +1,6 @@
 package com.capgemini.library.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Role;
-import com.capgemini.library.model.User;
-import com.capgemini.library.repository.UserRepository;
+import com.capgemini.library.repository.LectorRepository;
 
 import jakarta.annotation.PostConstruct;
 
@@ -21,34 +22,39 @@ import jakarta.annotation.PostConstruct;
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	UserRepository userRepository;
+	LectorRepository lectorRepository;
 
 	@Autowired
 	PasswordEncoder encoder;
 
 	@PostConstruct
 	public void initialiseDefaultUser() {
-		if (userRepository.findByUsername("admin").isEmpty())
-			userRepository.save(new User("admin", encoder.encode("1234"), Role.ROLE_ADMIN));
+		if (lectorRepository.findByUsername("admin").isEmpty())
+			lectorRepository.save(new Lector("admin", encoder.encode("1234"), Role.ROLE_ADMIN, "Administrador", "", "", ""));
 	}
 
-	public void createUser(User user) {
-		user.setPassword(encoder.encode(user.getPassword()));
-		user.setRole(Role.ROLE_USER);
-		userRepository.save(user);
+	public void createUser(Lector lector) {
+		lector.setPassword(encoder.encode(lector.getPassword()));
+		lector.setRole(Role.ROLE_USER);
+		lectorRepository.save(lector);
 	}
 
-	public User findUserByUsername(String username) {
-		return userRepository.findByUsername(username).orElse(null);
+	public Lector findUserByUsername(String username) {
+		List<Lector> lector = lectorRepository.findByUsername(username);
+		if (lector.size() == 0)
+			return null;
+		return lector.get(0);
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // (1)
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+		List<Lector> lectores = lectorRepository.findByUsername(username);
+		if (lectores.size() == 0)
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		Lector lector = lectores.get(0);
 
-		Set<GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(user.getRole().name()));
+		Set<GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(lector.getRole().name()));
 
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				user.isEnabled(), true, true, true, authorities);
+		return new org.springframework.security.core.userdetails.User(lector.getUsername(), lector.getPassword(),
+				lector.isEnabled(), true, true, true, authorities);
 	}
 }

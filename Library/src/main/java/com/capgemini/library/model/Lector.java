@@ -2,14 +2,21 @@ package com.capgemini.library.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,13 +26,22 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class Lector implements Serializable {
+public class Lector implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1130048379273572765L;
 
 	@Id
 	@Column
 	private String id = UUID.randomUUID().toString();
+
+	@Column(unique = true)
+	private String username;
+
+	@Column
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,24 +54,43 @@ public class Lector implements Serializable {
 	private String telefono;
 
 	@Column
+	private String email;
+
+	@Column
 	private String direccion;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne
 	private Multa multa = null;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lector", cascade = CascadeType.ALL)
+	@OneToMany
 	private Set<Prestamo> prestamos = new HashSet<>();
 
 	public Lector() {
 		super();
 	}
 
-	public Lector(String id, Long nSocio, String nombre, String telefono, String direccion) {
+	public Lector(String id, String username, String password, Role role, String nombre, String telefono, String email,
+			String direccion) {
 		super();
 		this.id = id;
-		this.nSocio = nSocio;
+		this.username = username;
+		this.password = password;
+		this.role = role;
 		this.nombre = nombre;
 		this.telefono = telefono;
+		this.email = email;
+		this.direccion = direccion;
+	}
+
+	public Lector(String username, String password, Role role, String nombre, String telefono, String email,
+			String direccion) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.email = email;
 		this.direccion = direccion;
 	}
 
@@ -108,6 +143,14 @@ public class Lector implements Serializable {
 		this.telefono = telefono;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getDireccion() {
 		return direccion;
 	}
@@ -122,6 +165,57 @@ public class Lector implements Serializable {
 
 	public void setMulta(Multa multa) {
 		this.multa = multa;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> roles = new ArrayList<>();
+		roles.add(new SimpleGrantedAuthority(role.toString()));
+		return roles;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }

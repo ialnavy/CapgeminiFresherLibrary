@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.capgemini.library.model.User;
+import com.capgemini.library.model.Lector;
 import com.capgemini.library.service.MyUserDetailsService;
 
 @Controller
@@ -40,7 +40,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String postLogin(Model model, @ModelAttribute User user, BindingResult result) {
+	public String postLogin(Model model, @ModelAttribute Lector user, BindingResult result) {
 		UserDetails userDetails;
 		try {
 			userDetails = userDetailsService.loadUserByUsername(user.getUsername());
@@ -71,7 +71,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public String postRegister(Model model, @ModelAttribute User user, BindingResult result) {
+	public String postRegister(Model model, @ModelAttribute Lector user, BindingResult result) {
 		if (result.hasErrors()) {
 			initialiseLogin(model);
 			return "register";
@@ -109,7 +109,7 @@ public class AuthController {
 	}
 
 	private static void initialiseLogin(Model model) {
-		model.addAttribute("user", new User());
+		model.addAttribute("user", new Lector());
 	}
 
 }
