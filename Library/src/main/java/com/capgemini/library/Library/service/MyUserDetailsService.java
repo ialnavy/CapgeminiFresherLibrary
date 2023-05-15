@@ -1,8 +1,6 @@
 package com.capgemini.library.Library.service;
 
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,17 +34,21 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	public void createUser(User user) {
 		user.setPassword(encoder.encode(user.getPassword()));
+		user.setRole(Role.ROLE_USER);
 		userRepository.save(user);
+	}
+
+	public User findUserByUsername(String username) {
+		return userRepository.findByUsername(username).orElse(null);
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // (1)
 		User user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-		Set<GrantedAuthority> authorities = List.of(Role.values()).stream()
-				.map((role) -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toSet());
+		Set<GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(user.getRole().name()));
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				authorities);
+				user.isEnabled(), true, true, true, authorities);
 	}
 }

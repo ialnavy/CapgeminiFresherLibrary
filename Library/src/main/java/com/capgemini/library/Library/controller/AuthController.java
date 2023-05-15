@@ -1,6 +1,9 @@
 package com.capgemini.library.Library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,61 +21,71 @@ import com.capgemini.library.Library.service.MyUserDetailsService;
 public class AuthController {
 
 	@Autowired
-	private MyUserDetailsService lectorService;
+	MyUserDetailsService userDetailsService;
 
 	@Autowired
 	PasswordEncoder encoder;
 
 	@GetMapping("/login")
 	public String getLogin(Model model) {
-		initialiseLector(model);
+		initialiseLogin(model);
 		return "login";
+	}
+
+	@GetMapping("/logout")
+	public String getLogout(Model model) {
+		initialiseLogin(model);
+		SecurityContextHolder.getContext().setAuthentication(null);
+		return "redirect:/";
 	}
 
 	@PostMapping("/login")
 	public String postLogin(Model model, @ModelAttribute User user, BindingResult result) {
-		System.out.println("AAAAAAAA");
 		UserDetails userDetails;
 		try {
-			userDetails = lectorService.loadUserByUsername(user.getUsername());
+			userDetails = userDetailsService.loadUserByUsername(user.getUsername());
 		} catch (UsernameNotFoundException e) {
-			initialiseLector(model);
+			initialiseLogin(model);
 			result.rejectValue("username", "error.user", "No existe ningún usuario con el nombre de usuario dado");
 			return "redirect:/";
 		}
 
 		if (!userDetails.getPassword().equals(encoder.encode(user.getPassword()))) {
-			initialiseLector(model);
+			initialiseLogin(model);
 			result.rejectValue("password", "error.user", "La contraseña no es correcta");
 			return "redirect:/";
 		}
 
-		initialiseLector(model);
+		Authentication authentication = new AnonymousAuthenticationToken(userDetails.getUsername(),
+				userDetails.getPassword(), userDetails.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		initialiseLogin(model);
 		return "redirect:/";
 	}
 
 	@GetMapping("/register")
 	public String getRegister(Model model) {
-		initialiseLector(model);
+		initialiseLogin(model);
 		return "register";
 	}
 
 	@PostMapping("/register")
 	public String postRegister(Model model, @ModelAttribute User user, BindingResult result) {
 		if (result.hasErrors()) {
-			initialiseLector(model);
+			initialiseLogin(model);
 			return "register";
 		}
 
 		if (user.getUsername() == null || user.getUsername().length() < 3) {
-			initialiseLector(model);
+			initialiseLogin(model);
 			result.rejectValue("username", "error.user",
 					"El nombre de usuario debe tener una longitud mínima de 3 caracteres");
 			return "register";
 		}
 
 		if (user.getPassword() == null || user.getPassword().length() < 3) {
-			initialiseLector(model);
+			initialiseLogin(model);
 			result.rejectValue("password", "error.user",
 					"La contraseña debe tener una longitud mínima de 3 caracteres");
 			return "register";
@@ -80,22 +93,22 @@ public class AuthController {
 
 		boolean existsUser;
 		try {
-			lectorService.loadUserByUsername(user.getUsername());
+			userDetailsService.loadUserByUsername(user.getUsername());
 			existsUser = true;
 		} catch (UsernameNotFoundException e) {
 			existsUser = false;
 		}
 		if (existsUser) {
-			initialiseLector(model);
+			initialiseLogin(model);
 			result.rejectValue("username", "error.user", "Ya existe un usuario con ese nombre");
 			return "register";
 		}
 
-		lectorService.createUser(user);
+		userDetailsService.createUser(user);
 		return "redirect:/register";
 	}
 
-	private static void initialiseLector(Model model) {
+	private static void initialiseLogin(Model model) {
 		model.addAttribute("user", new User());
 	}
 
