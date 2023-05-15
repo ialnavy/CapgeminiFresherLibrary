@@ -36,6 +36,8 @@ public class Copia implements Serializable {
 	public Copia() {
 		super();
 	}
+	
+	
 
 	public Copia(String id, EstadoCopia estado) {
 		super();
@@ -79,5 +81,6 @@ public class Copia implements Serializable {
 	public void setPrestamo(Prestamo prestamo) {
 		this.prestamo = prestamo;
 	}
+
 
 }

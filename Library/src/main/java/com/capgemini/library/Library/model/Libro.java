@@ -21,7 +21,7 @@ import jakarta.persistence.Table;
 public class Libro implements Serializable {
 
 	private static final long serialVersionUID = -4058886698375661365L;
-
+	
 	@Id
 	@Column
 	private String id = UUID.randomUUID().toString();
@@ -44,7 +44,7 @@ public class Libro implements Serializable {
 
 	@OneToMany
 	private Set<Copia> ejemplar = new HashSet<>();
-
+	
 	public Libro() {
 		super();
 	}
@@ -112,7 +112,7 @@ public class Libro implements Serializable {
 
 	public void setAutor(Autor autor) {
 		this.autor = autor;
-	}// hola
+	}
 
 	public Set<Copia> getEjemplar() {
 		return ejemplar;

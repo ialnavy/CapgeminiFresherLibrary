@@ -13,7 +13,8 @@ public class CopiaServiceImp implements CopiaService {
 
 	@Autowired
 	private CopiaRepository copiaRepository;
-
+	
+	
 	public List<Copia> findAll() {
 		return (List<Copia>) copiaRepository.findAll();
 	}
@@ -33,5 +34,7 @@ public class CopiaServiceImp implements CopiaService {
 	public void deleteById(String id) {
 		copiaRepository.deleteById(id);
 	}
+
+
 
 }

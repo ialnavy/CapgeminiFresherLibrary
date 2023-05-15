@@ -25,6 +25,7 @@ public class LibroController {
 	@Autowired
 	private LibroService libroService;
 
+
 	@GetMapping("/libro/list")
 	public String listarLibros(Model model) {
 		List<Libro> libros = libroService.obtenerTodosLosLibros();
@@ -60,6 +61,7 @@ public class LibroController {
 		libroService.añadirLibro(libro);
 		return "redirect:/libro/list";
 	}
+	
 
 	private void initialiseLibro(Model model, AutorService autorService) {
 		model.addAttribute("libro", new Libro());
