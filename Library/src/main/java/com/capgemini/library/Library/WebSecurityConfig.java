@@ -1,58 +1,38 @@
 package com.capgemini.library.Library;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.capgemini.library.Library.service.MyUserDetailsService;
 
 @Configuration
-public class WebSecurityConfig implements WebMvcConfigurer {
+@EnableWebSecurity
+public class WebSecurityConfig {
 
-	@Value("${spring.websecurity.debug:false}")
-	boolean webSecurityDebug;
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return new Sha512PasswordEncoder();
+    }
 
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeHttpRequests() //
-				.requestMatchers(HttpMethod.GET, "/").permitAll() //
-				.requestMatchers(HttpMethod.GET, "/register").permitAll() //
-				.requestMatchers(HttpMethod.GET, "/login").permitAll() //
-				.requestMatchers(HttpMethod.POST, "/login").permitAll() //
-				.requestMatchers(HttpMethod.GET, "/logout").permitAll() //
-				.anyRequest().authenticated() //
-		;
-		return http.build();
-	}
-
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-			throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
-
-	@Bean
-	UserDetailsService userDetailsService() {
-		return new MyUserDetailsService();
-	}
-
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new Sha512PasswordEncoder();
-	}
-
-	@Bean
-	WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.debug(webSecurityDebug);
-	}
-
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/register/**").permitAll()
+                        .requestMatchers("/login/**").permitAll()
+                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin((form) -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/user/")
+                        .permitAll()
+                )
+                .logout((logout) -> logout.permitAll())
+                .exceptionHandling().accessDeniedPage("/access-denied");
+        return http.build();
+    }
 }
