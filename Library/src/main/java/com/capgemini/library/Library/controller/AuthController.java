@@ -1,10 +1,8 @@
 package com.capgemini.library.Library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,17 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.capgemini.library.Library.model.User;
 import com.capgemini.library.Library.service.MyUserDetailsService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class AuthController {
 
 	@Autowired
 	MyUserDetailsService userDetailsService;
-
-	@Autowired
-	AuthenticationManager authenticationManager;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -41,14 +33,14 @@ public class AuthController {
 	}
 
 	@GetMapping("/logout")
-	public String getLogout(HttpServletRequest request, Model model) {
+	public String getLogout(Model model) {
 		initialiseLogin(model);
-		doLogout(request);
+		SecurityContextHolder.getContext().setAuthentication(null);
 		return "redirect:/";
 	}
 
 	@PostMapping("/login")
-	public String postLogin(HttpServletRequest request, Model model, @ModelAttribute User user, BindingResult result) {
+	public String postLogin(Model model, @ModelAttribute User user, BindingResult result) {
 		UserDetails userDetails;
 		try {
 			userDetails = userDetailsService.loadUserByUsername(user.getUsername());
@@ -64,7 +56,10 @@ public class AuthController {
 			return "redirect:/";
 		}
 
-		doLogin(authenticationManager, request, userDetails.getUsername(), userDetails.getPassword());
+		Authentication authentication = new AnonymousAuthenticationToken(userDetails.getUsername(),
+				userDetails.getPassword(), userDetails.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		initialiseLogin(model);
 		return "redirect:/";
 	}
@@ -115,30 +110,6 @@ public class AuthController {
 
 	private static void initialiseLogin(Model model) {
 		model.addAttribute("user", new User());
-	}
-
-	private static void doLogin(AuthenticationManager authenticationManager, HttpServletRequest request,
-			String userName, String password) {
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userName, password);
-
-		// Authenticate the user
-		Authentication authentication = authenticationManager.authenticate(authRequest);
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		securityContext.setAuthentication(authentication);
-
-		// Create a new session and add the security context.
-		HttpSession session = request.getSession(true);
-		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-	}
-
-	private static void doLogout(HttpServletRequest request) {
-		// Authenticate the user
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		securityContext.setAuthentication(null);
-
-		// Create a new session and add the security context.
-		HttpSession session = request.getSession(true);
-		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 	}
 
 }
