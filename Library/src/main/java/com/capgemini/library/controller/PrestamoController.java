@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.capgemini.library.ServiceException;
 import com.capgemini.library.model.Copia;
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Prestamo;
-import com.capgemini.library.service.CopiaService;
 import com.capgemini.library.service.LectorService;
 import com.capgemini.library.service.PrestamoService;
+import com.capgemini.library.service.model.CopiaService;
 
 @Controller
 public class PrestamoController {
@@ -46,7 +47,12 @@ public class PrestamoController {
 			return "createPrestamo";
 		}
 
-		Copia copia = copiaService.findById(copiaId);
+		Copia copia = null;
+		try {
+			copia = copiaService.readById(copiaId);
+		} catch (ServiceException se) {
+
+		}
 		if (copia == null) {
 			model.addAttribute("message", "No se pudo realizar el préstamo porque la copia con el ID dado no existe");
 			initialisePrestamo(model, lectorService, copiaService);
