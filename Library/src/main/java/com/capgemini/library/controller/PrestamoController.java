@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.capgemini.library.model.Copia;
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Prestamo;
-import com.capgemini.library.service.CopiaService;
 import com.capgemini.library.service.LectorService;
 import com.capgemini.library.service.PrestamoService;
+import com.capgemini.library.service.model.CopiaService;
 
 @Controller
 public class PrestamoController {

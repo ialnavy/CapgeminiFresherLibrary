@@ -50,8 +50,7 @@ public class LibroController {
 	}
 
 	@PostMapping("/libro/create")
-	public String createLibro(Model model, @ModelAttribute Libro libro, BindingResult result,
-			@RequestParam("autorID") String autorID) {
+	public String createLibro(Model model, @ModelAttribute Libro libro, @RequestParam("autorID") String autorID) {
 		try {
 			libroService.create(libro);
 		} catch (ServiceException se) {
