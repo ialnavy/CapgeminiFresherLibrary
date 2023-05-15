@@ -6,11 +6,12 @@ import com.capgemini.library.model.Reserva;
 
 public interface ReservaService {
 	
-    Reserva createReserva(Reserva reserva);
+    Reserva createReserva(Reserva reserva) throws Exception;
     
     void cancelReserva(String id);
     
     void verifyReservas(String copiaId);
     
     List<Reserva> getAllReservas();
+    
 }

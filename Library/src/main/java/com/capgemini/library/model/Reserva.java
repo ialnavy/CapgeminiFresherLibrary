@@ -1,7 +1,7 @@
 package com.capgemini.library.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -23,7 +23,7 @@ public class Reserva implements Serializable {
     private String id = UUID.randomUUID().toString();
 
     @Column
-    private LocalDate fechaReserva;
+    private LocalDateTime fechaReserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "copia_id")
@@ -33,6 +33,9 @@ public class Reserva implements Serializable {
     @JoinColumn(name = "lector_id")
     private Lector lector;
 
+    
+    private LocalDateTime fechaNotificacion;
+    
 	public String getId() {
 		return id;
 	}
@@ -41,12 +44,12 @@ public class Reserva implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDate getFechaReserva() {
+	public LocalDateTime getFechaReserva() {
 		return fechaReserva;
 	}
 
-	public void setFechaReserva(LocalDate fechaReserva) {
-		this.fechaReserva = fechaReserva;
+	public void setFechaReserva(LocalDateTime localDateTime) {
+		this.fechaReserva = localDateTime;
 	}
 
 	public Copia getCopia() {
@@ -63,6 +66,14 @@ public class Reserva implements Serializable {
 
 	public void setLector(Lector lector) {
 		this.lector = lector;
+	}
+
+	public LocalDateTime getFechaNotificacion() {
+		return fechaNotificacion;
+	}
+
+	public void setFechaNotificacion(LocalDateTime fechaNotificacion) {
+		this.fechaNotificacion = fechaNotificacion;
 	}
 
 }

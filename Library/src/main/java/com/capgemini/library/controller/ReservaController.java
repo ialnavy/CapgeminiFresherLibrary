@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.capgemini.library.model.Lector;
-import com.capgemini.library.model.Multa;
 import com.capgemini.library.model.Reserva;
-import com.capgemini.library.service.MultaService;
 import com.capgemini.library.service.ReservaService;
 
 @Controller
@@ -18,21 +15,15 @@ public class ReservaController {
 
     @Autowired
     private ReservaService reservaService;
-    
-    @Autowired
-    private Lector lector;
-
+ 
     @PostMapping("/reserva")
     public String createReserva(@ModelAttribute Reserva reserva) {
-    	Multa multa = lector.getMulta();
-        // Comprobar si el Socio está multado
-        if (multa != null) {
-            // Redirigir a una página de error
-            return "redirect:/error";
-        }
-
-        // Crear la reserva
-        reservaService.createReserva(reserva);
+        try {
+			reservaService.createReserva(reserva);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
         return "redirect:/reserva/list";
     }
 

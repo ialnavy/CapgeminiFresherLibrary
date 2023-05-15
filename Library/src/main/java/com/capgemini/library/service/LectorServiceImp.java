@@ -82,4 +82,6 @@ public class LectorServiceImp implements LectorService {
 
 		return true;
 	}
+	
 }
+	
