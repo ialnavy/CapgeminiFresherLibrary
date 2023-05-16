@@ -36,6 +36,7 @@ public class Multa implements Serializable {
 	public Multa() {
 		super();
 	}
+	
 
 	public Multa(String id, LocalDate fInicio, LocalDate fFin, Lector lector) {
 		super();
