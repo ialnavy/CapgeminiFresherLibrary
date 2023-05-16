@@ -25,13 +25,13 @@ public class ReservaController {
 
 	@Autowired
 	private ReservaService reservaService;
-	
+
 	@Autowired
 	private CopiaService copiaService;
-	
+
 	@Autowired
 	private LectorService lectorService;
-	
+
 	@GetMapping("/reserva")
 	public String reserva(Model model) {
 		model.addAttribute("reserva", new Reserva());
@@ -56,25 +56,32 @@ public class ReservaController {
 		return "crud/reserva";
 	}
 
-    @PostMapping("/reserva/create")
-    public String createReserva(Model model, @ModelAttribute Reserva reserva, @RequestParam("lectorID") String lectorID, @RequestParam("copiaID") String copiaID) throws ServiceException {
-    	try {
+	@PostMapping("/reserva/create")
+	public String createReserva(Model model, @ModelAttribute Reserva reserva, //
+			@RequestParam(name = "lectorID", required = false) String lectorID, //
+			@RequestParam(name = "copiaID", required = false) String copiaID) throws ServiceException {
+		if (copiaID == null || copiaID.length() == 0 //
+				|| lectorID == null || lectorID.length() == 0 //
+				|| reserva.getFechaReserva() == null)
+			return "redirect:/reserva";
+
+		try {
 			reservaService.create(reserva);
 		} catch (ServiceException se) {
 			System.err.println(se.getMessage());
 		}
-    	try {
+		try {
 			reservaService.linkReservaToCopia(reserva.getId(), copiaID);
 		} catch (ServiceException se) {
 			System.err.println(se.getMessage());
 		}
-    	try {
+		try {
 			reservaService.linkReservaToLector(reserva.getId(), lectorID);
 		} catch (ServiceException se) {
 			System.err.println(se.getMessage());
 		}
-        return "redirect:/reserva";
-    }  
+		return "redirect:/reserva";
+	}
 
 	@GetMapping("/reserva/delete/{reservaID}")
 	public String deleteReserva(Model model, @PathVariable(value = "reservaID") String reservaID) {
