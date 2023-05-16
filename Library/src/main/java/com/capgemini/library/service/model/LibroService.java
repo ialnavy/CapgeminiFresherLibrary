@@ -5,5 +5,8 @@ import com.capgemini.library.model.Libro;
 import com.capgemini.library.service.AbstractService;
 
 public interface LibroService extends AbstractService<Libro> {
+	
 	public void linkLibroToAutor(String libroID, String autorID) throws ServiceException;
+	
+	public boolean isCreable(Libro libro, String autorID) throws ServiceException;
 }

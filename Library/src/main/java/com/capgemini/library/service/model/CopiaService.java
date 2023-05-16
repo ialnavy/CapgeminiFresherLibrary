@@ -13,4 +13,6 @@ public interface CopiaService extends AbstractService<Copia> {
 	public List<Copia> findAllYaAlquiladas() throws ServiceException;
 	
 	public List<Copia> findAllNoAlquiladas() throws ServiceException;
+	
+	public boolean isCreable(Copia copia, String libroID) throws ServiceException;
 }

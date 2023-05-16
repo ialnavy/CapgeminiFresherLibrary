@@ -9,5 +9,6 @@ public interface LectorService extends AbstractService<Lector> {
 	public String realizarPrestamo(String lectorID, String copiaID, Prestamo prestamoPOJO) throws ServiceException;
 
 	public boolean puedeRealizarPrestamo(Lector lector) throws ServiceException;
-
+	
+	public boolean isCreable(Lector lector) throws ServiceException;
 }

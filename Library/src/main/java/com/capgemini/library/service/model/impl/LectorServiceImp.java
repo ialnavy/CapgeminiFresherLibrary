@@ -3,12 +3,15 @@ package com.capgemini.library.service.model.impl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.library.ServiceException;
 import com.capgemini.library.model.Copia;
+import com.capgemini.library.model.EstadoCopia;
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Multa;
 import com.capgemini.library.model.Prestamo;
@@ -93,11 +96,12 @@ public class LectorServiceImp implements LectorService {
 	}
 
 	@Override
-	public String realizarPrestamo(String lectorID, String copiaID, Prestamo prestamo) {
+	public String realizarPrestamo(String lectorID, String copiaID, Prestamo prestamo)  throws ServiceException{
 		prestamo.setFechaFin(LocalDate.now().plusDays(30));
 
 		Lector lector = lectorRepository.findById(lectorID).orElse(null);
 		Copia copia = copiaRepository.findById(copiaID).orElse(null);
+		copia.setEstado(EstadoCopia.PRESTADO);
 
 		prestamo.setLector(lector);
 		prestamo.setCopia(copia);
@@ -128,6 +132,25 @@ public class LectorServiceImp implements LectorService {
 			return false;
 		}
 
+		return true;
+	}
+
+	@Override
+	public boolean isCreable(Lector lector) throws ServiceException {
+		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		Matcher mather = pattern.matcher(lector.getEmail());
+		if(lector == null || lector.getId() == null || lector.getId().length() == 0
+				|| lector.getTelefono() == null || mather.find() == true
+				|| lector.getDireccion().isEmpty())
+			return false;
+		try {
+			if(lectorRepository.findById(lector.getId()).isPresent())
+				return false;
+		}catch (Exception e) {
+			throw new ServiceException(e);
+		}
+			
 		return true;
 	}
 

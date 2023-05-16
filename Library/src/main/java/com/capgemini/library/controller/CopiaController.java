@@ -46,7 +46,17 @@ public class CopiaController {
 	}
 
 	@PostMapping("/copia/create")
-	public String createCopia(Model model, @ModelAttribute Copia copia, @RequestParam("libroID") String libroID) {
+	public String createCopia(Model model, @ModelAttribute Copia copia, //
+			@RequestParam(name = "libroID", required = false) String libroID) {
+		boolean preconditions = false;
+		try {
+			preconditions = copiaService.isCreable(copia, libroID);
+		} catch (ServiceException se) {
+			System.err.println(se.getMessage());
+		}
+		if (!preconditions)
+			return "redirect:/copia";
+		
 		try {
 			copiaService.create(copia);
 		} catch (ServiceException se) {
