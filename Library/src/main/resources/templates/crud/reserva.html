@@ -17,7 +17,7 @@
 				<div class="form-group">
 		            <p><label for="libro">¿De qué copia se desea realizar la reserva?</label></p>
 		            <select class="form-control" id="copia" name="copiaID">
-		                <option th:each="iCopia : ${todasLasCopias}" th:value="${iCopia.id}" th:text="${iCopia.libro.titulo} + ', en estado: ' + ${iCopia.estado}">-</option>
+		                <option th:each="iCopia : ${todasLasCopias}" th:value="${iCopia.id}" th:text="${iCopia.libro.titulo} + ', en estado: ' + ${iCopia.estado} + '(ID: ' + ${iCopia.id} + ')'">-</option>
 		            </select>
 		        </div>
 				<div class="form-group">
