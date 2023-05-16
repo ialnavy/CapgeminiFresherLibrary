@@ -1,17 +1,20 @@
-package com.capgemini.library.service;
+package com.capgemini.library.service.model.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.library.ServiceException;
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Multa;
 import com.capgemini.library.model.Prestamo;
 import com.capgemini.library.repository.MultaRepository;
 import com.capgemini.library.repository.PrestamoRepository;
+import com.capgemini.library.service.model.PrestamoService;
 
 @Service
 public class PrestamoServiceImp implements PrestamoService {
@@ -23,19 +26,48 @@ public class PrestamoServiceImp implements PrestamoService {
 	private PrestamoRepository prestamoRepository;
 
 	@Override
-	public List<Prestamo> findAll() {
-		return (List<Prestamo>) prestamoRepository.findAll();
+	public void create(Prestamo prestamo) throws ServiceException {
+		try {
+			prestamoRepository.save(prestamo);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
 	}
 
-	public Prestamo save(Prestamo prestamo) {
-		Lector lector = prestamo.getLector();
-		if (lector == null)
-			throw new IllegalArgumentException("El préstamo debe tener un lector asociado.");
+	@Override
+	public List<Prestamo> readAll() throws ServiceException {
+		List<Prestamo> prestamos = new ArrayList<>();
+		try {
+			prestamos = (List<Prestamo>) prestamoRepository.findAll();
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		return prestamos;
+	}
 
-		if (getPrestamosActivosByLector(lector).size() >= 3)
-			throw new IllegalStateException("El lector no puede tener más de 3 libros en préstamo.");
+	@Override
+	public Prestamo readById(String id) throws ServiceException {
+		Prestamo prestamo = null;
+		try {
+			prestamo = prestamoRepository.findById(id).orElse(null);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		return prestamo;
+	}
 
-		return prestamoRepository.save(prestamo);
+	@Override
+	public void update(Prestamo pojo) throws ServiceException {
+		// TODO
+	}
+
+	@Override
+	public void deleteById(String id) throws ServiceException {
+		try {
+			prestamoRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override

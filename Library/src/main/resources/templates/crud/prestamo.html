@@ -30,7 +30,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="iCopia : ${copias}">
+						<tr th:each="iCopia : ${todasLasCopias}">
 							<td><input type="radio" name="copiaID" th:value="${iCopia.id}" /></td>
 							<td headers="libro" th:text="${iCopia.libro.titulo}"><a th:href="@{'/libro/' + ${iCopia.libro.id}}" th:alt="@{'Enlace a la descripción del libro ' + ${iCopia.libro.titulo}}">Titulo- </a></td>
 							<td headers="estado" th:text="${iCopia.estado}">Estado -</td>
@@ -56,7 +56,7 @@
 						<th scope="col" id="fechaDevolucion">Fecha de Devolucion</th> 
 					</tr>
 				</thead>
-				<tbody:block th:each="prestamo : ${prestamos}">
+				<tbody:block th:each="prestamo : ${todosLosPrestamos}">
 					<tr>
 						<td headers="lector" th:text="${prestamo.lector.nombre}">Nombre del lector -</td>	
 						<td headers="fechaInicio" th:text="${prestamo.fechaInicio}">Fecha de inicio -</td>

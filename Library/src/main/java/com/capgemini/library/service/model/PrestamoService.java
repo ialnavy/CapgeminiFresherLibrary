@@ -1,15 +1,12 @@
-package com.capgemini.library.service;
+package com.capgemini.library.service.model;
 
 import java.util.List;
 
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Prestamo;
+import com.capgemini.library.service.AbstractService;
 
-public interface PrestamoService {
-
-	public List<Prestamo> findAll();
-
-	public Prestamo save(Prestamo prestamo);
+public interface PrestamoService extends AbstractService<Prestamo> {
 
 	public void verificarPrestamosYMultas();
 
