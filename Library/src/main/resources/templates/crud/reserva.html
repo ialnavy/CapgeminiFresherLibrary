@@ -39,6 +39,7 @@
 			<table class="table table-striped table-hover">
 				<thead class="thead-dark">
 					<tr>
+						<th scope="col" id="copiaID">ID de la copia</th>
 						<th scope="col" id="lectorName">Nombre del lector</th>
 						<th scope="col" id="libroTitle">Título del libro</th>
 						<th scope="col" id="fechaReserva">Fecha de reserva</th>
@@ -48,6 +49,7 @@
 				</thead>
 				<tbody:block th:each="iReserva : ${todasLasReservas}">
 					<tr>
+						<td headers="copiaID" th:text="${iReserva.copia.id}">ID de la copia -</td>
 						<td headers="lectorName" th:text="${iReserva.lector.nombre}">Nombre del lector -</td>
 						<td headers="libroTitle" th:text="${iReserva.copia.libro.titulo}">Título del libro -</td>
 						<td headers="fechaReserva" th:text="${iReserva.fechaReserva}">Fecha de reserva -</td>
