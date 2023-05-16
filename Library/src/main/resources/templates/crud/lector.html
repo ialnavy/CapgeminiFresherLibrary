@@ -61,6 +61,7 @@
 	                    <th scope="col" id="email">Email</th>
 	                    <th scope="col" id="direccion">Dirección</th>
 	                    <th scope="col" id="multa">¿Tiene una multa?</th>
+	                    <th scope="col" id="deleteLink">Eliminar</th>
 	                </tr>
 	            </thead>
 	            <tbody:block th:each="iLector : ${todosLosLectores}">
@@ -71,6 +72,7 @@
 	                    <td headers="email" th:text="${iLector.email}">Email -</td>
 	                    <td headers="direccion" th:text="${iLector.direccion}">Dirección -</td>
 	                    <td headers="multa" th:text="${iLector.multa} ? 'Sí' : 'No' ">Multa -</td>
+	                    <td headers="deleteLink"><a th:href="'/lector/delete/' + ${iLector.id}" th:alt="'Enlace a la eliminación del lector ' + ${iLector.nombre}" >Eliminar</a></td>
 	                </tr>
 	             </tbody:block>
 	    	</table>
