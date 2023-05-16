@@ -50,19 +50,23 @@
 			<table class="table table-striped table-hover">
 				<thead class="thead-dark">
 					<tr>
+						<th scope="col" id="copiaID">ID de la copia</th>
 						<th scope="col" id="lector">Nombre del lector</th>
+						<th scope="col" id="libroTitle">Título del libro</th>
 						<th scope="col" id="fechaInicio">Fecha de inicio</th>
 						<th scope="col" id="fechaFin">Fecha de fin</th>
 						<th scope="col" id="fechaDevolucion">Fecha de Devolucion</th> 
 					</tr>
 				</thead>
-				<tbody:block th:each="prestamo : ${todosLosPrestamos}">
+				<tbody:block th:each="iPrestamo : ${todosLosPrestamos}">
 					<tr>
-						<td headers="lector" th:text="${prestamo.lector.nombre}">Nombre del lector -</td>	
-						<td headers="fechaInicio" th:text="${prestamo.fechaInicio}">Fecha de inicio -</td>
-						<td headers="fechaFin" th:text="${prestamo.fechaFin}">Fecha de fin -</td>
+						<td headers="copiaID" th:text="${iPrestamo.copia.id}">ID de la copia -</td>
+						<td headers="lector" th:text="${iPrestamo.lector.nombre}">Nombre del lector -</td>
+						<td headers="libroTitle" th:text="${iPrestamo.copia.libro.titulo}">Título del libro -</td>
+						<td headers="fechaInicio" th:text="${iPrestamo.fechaInicio}">Fecha de inicio -</td>
+						<td headers="fechaFin" th:text="${iPrestamo.fechaFin}">Fecha de fin -</td>
 						<td headers="fechaDevolucion"> 
-							<p><input type="date" class="form-control" id="fechaDevolucion" th:text="${prestamo.fechaDevolucion}" /></p>
+							<p><input type="date" class="form-control" id="fechaDevolucion" th:text="${iPrestamo.fechaDevolucion}" /></p>
 						</td>
 					</tr>
 				</tbody:block>

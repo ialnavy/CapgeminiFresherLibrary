@@ -3,6 +3,7 @@ package com.capgemini.library.model;
 import java.io.Serializable;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -28,7 +29,7 @@ public class Copia implements Serializable {
 	@ManyToOne
 	private Libro libro;
 
-	@OneToOne
+	@OneToOne(mappedBy = "copia", cascade = CascadeType.ALL)
 	private Prestamo prestamo;
 
 	public Copia() {
