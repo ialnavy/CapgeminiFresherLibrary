@@ -36,15 +36,18 @@ public class PrestamoController {
 	public String prestamo(Model model) {
 		List<Lector> lectores = new ArrayList<>();
 		List<Copia> copias = new ArrayList<>();
+		List<Prestamo> prestamos = new ArrayList<>();
 		try {
 			lectores = lectorService.readAll();
 			copias = copiaService.findAllNoAlquiladas();
+			prestamos = prestamoService.readAll();
 		} catch (ServiceException se) {
 		}
 
 		model.addAttribute("prestamo", new Prestamo());
 		model.addAttribute("todosLosLectores", lectores);
 		model.addAttribute("todasLasCopias", copias);
+		model.addAttribute("tododsLosPrestamos", prestamos);
 		return "crud/prestamo";
 	}
 
