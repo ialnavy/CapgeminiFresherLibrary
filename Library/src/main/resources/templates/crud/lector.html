@@ -84,7 +84,7 @@
 					</p>
 					<select class="form-control" id="lector" name="lectorID">
 		            	<option th:each="iLector : ${todosLosLectores}" th:value="${iLector.id}"
-		            	th:text="'' + ${iLector.nombre} + ' (número de socio: ' + ${iLector.nSocio} + ', teléfono: ' + ${iLector.teléfono} + ', email: ' + ${iLector.email} + ', dirección: ' + ${iLector.direccion} + ')'">-</option>
+		            	th:text="'' + ${iLector.nombre} + ' (número de socio: ' + ${iLector.nSocio} + ', teléfono: ' + ${iLector.telefono} + ', email: ' + ${iLector.email} + ', dirección: ' + ${iLector.direccion} + ')'">-</option>
 		        	</select>
 				</div>
 				
