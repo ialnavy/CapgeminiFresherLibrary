@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+	<header th:replace="~{fragments/header}"></header>
+	<main>
+		<h2>Realizar el alquiler de la copia de un libro</h2>
+		<section>
+			<h3>Realizar préstamo</h3>
+			<form class="p-3 mb-2 bg-light" action="#" th:action="@{/prestamo/create}" method="post" th:object="${prestamo}">
+				<div class="form-group">
+					<label for="lector">¿Qué lector desea realizar el préstamo?</label>
+					<select class="form-control" id="lector" name="lectorID">
+						<option th:each="iLector : ${lectores}" th:value="${iLector.id}" th:text="'' + ${iLector.nSocio} + ' ' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<label for="fechaInicio">Fecha de inicio del prestamo:</label> 
+					<input type="date" class="form-control" id="fechaInicio" th:field="*{fechaInicio}" />
+				</div>
+				
+				<p><label for="copia">Copia del libro para el prestamo:</label></p>
+				<table class="table table-striped table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col"></th>
+							<th scope="col" id="libro">Libro</th>
+							<th scope="col" id="estado">Estado de la copia</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="iCopia : ${copias}">
+							<td><input type="radio" name="copiaID" th:value="${iCopia.id}" /></td>
+							<td headers="libro" th:text="${iCopia.libro.titulo}"><a th:href="@{'/libro/' + ${iCopia.libro.id}}" th:alt="@{'Enlace a la descripción del libro ' + ${iCopia.libro.titulo}}">Titulo- </a></td>
+							<td headers="estado" th:text="${iCopia.estado}">Estado -</td>
+						</tr>
+					</tbody>
+				</table>
+	
+				<div class="form-group text-center">
+					<input type="submit" value="Enviar" />
+					<input type="reset" value="Vaciar datos" />
+				</div>
+				
+			</form>
+		</section>
+		<section>
+			<h3>Listado de préstamos</h3>
+			<table class="table table-striped table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col" id="lector">Nombre del lector</th>
+						<th scope="col" id="fechaInicio">Fecha de inicio</th>
+						<th scope="col" id="fechaFin">Fecha de fin</th>
+						<th scope="col" id="fechaDevolucion">Fecha de Devolucion</th> 
+					</tr>
+				</thead>
+				<tbody:block th:each="prestamo : ${prestamos}">
+					<tr>
+						<td headers="lector" th:text="${prestamo.lector.nombre}">Nombre del lector -</td>	
+						<td headers="fechaInicio" th:text="${prestamo.fechaInicio}">Fecha de inicio -</td>
+						<td headers="fechaFin" th:text="${prestamo.fechaFin}">Fecha de fin -</td>
+						<td headers="fechaDevolucion"> 
+							<p><input type="date" class="form-control" id="fechaDevolucion" th:text="${prestamo.fechaDevolucion}" /></p>
+						</td>
+					</tr>
+				</tbody:block>
+			</table>
+		</section>
+	</main>
+	<footer th:replace="~{fragments/footer}"></footer>
+</body>
+
+</html>
