@@ -55,7 +55,7 @@
 						<th scope="col" id="libroTitle">Título del libro</th>
 						<th scope="col" id="fechaInicio">Fecha de inicio</th>
 						<th scope="col" id="fechaFin">Fecha de fin</th>
-						<th scope="col" id="fechaDevolucion">Fecha de Devolucion</th> 
+						<th scope="col" id="deleteLink">Eliminar</th>
 					</tr>
 				</thead>
 				<tbody:block th:each="iPrestamo : ${todosLosPrestamos}">
@@ -65,9 +65,7 @@
 						<td headers="libroTitle" th:text="${iPrestamo.copia.libro.titulo}">Título del libro -</td>
 						<td headers="fechaInicio" th:text="${iPrestamo.fechaInicio}">Fecha de inicio -</td>
 						<td headers="fechaFin" th:text="${iPrestamo.fechaFin}">Fecha de fin -</td>
-						<td headers="fechaDevolucion"> 
-							<p><input type="date" class="form-control" id="fechaDevolucion" th:text="${iPrestamo.fechaDevolucion}" /></p>
-						</td>
+						<td headers="deleteLink"><a th:href="'/prestamo/delete/' + ${iPrestamo.id}" th:alt="'Enlace a la eliminación del préstamo del libro ' + ${iPrestamo.copia.libro.titulo}" >Eliminar</a></td>
 					</tr>
 				</tbody:block>
 			</table>
