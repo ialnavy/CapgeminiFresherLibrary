@@ -1,7 +1,7 @@
 package com.capgemini.library.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,7 +25,7 @@ public class Reserva implements Serializable {
 
 	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDateTime fechaReserva;
+	private LocalDate fechaReserva;
 
 	@ManyToOne
 	@JoinColumn(name = "copia_id")
@@ -37,7 +37,7 @@ public class Reserva implements Serializable {
 
 	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDateTime fechaNotificacion;
+	private LocalDate fechaNotificacion;
 
 	public String getId() {
 		return id;
@@ -47,11 +47,11 @@ public class Reserva implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDateTime getFechaReserva() {
+	public LocalDate getFechaReserva() {
 		return fechaReserva;
 	}
 
-	public void setFechaReserva(LocalDateTime localDateTime) {
+	public void setFechaReserva(LocalDate localDateTime) {
 		this.fechaReserva = localDateTime;
 	}
 
@@ -71,11 +71,11 @@ public class Reserva implements Serializable {
 		this.lector = lector;
 	}
 
-	public LocalDateTime getFechaNotificacion() {
+	public LocalDate getFechaNotificacion() {
 		return fechaNotificacion;
 	}
 
-	public void setFechaNotificacion(LocalDateTime fechaNotificacion) {
+	public void setFechaNotificacion(LocalDate fechaNotificacion) {
 		this.fechaNotificacion = fechaNotificacion;
 	}
 
