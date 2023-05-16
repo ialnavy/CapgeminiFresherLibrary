@@ -28,7 +28,7 @@ public class Copia implements Serializable {
 	@ManyToOne
 	private Libro libro;
 
-	@OneToOne(mappedBy = "copia")
+	@OneToOne
 	private Prestamo prestamo;
 
 	public Copia() {
