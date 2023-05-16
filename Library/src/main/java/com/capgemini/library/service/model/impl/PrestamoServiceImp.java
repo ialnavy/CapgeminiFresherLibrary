@@ -27,6 +27,8 @@ public class PrestamoServiceImp implements PrestamoService {
 
 	@Override
 	public void create(Prestamo prestamo) throws ServiceException {
+		
+		
 		try {
 			prestamoRepository.save(prestamo);
 		} catch (Exception e) {

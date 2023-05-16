@@ -38,6 +38,15 @@ public class AutorController {
 
 	@PostMapping("/autor/create")
 	public String createAutor(Model model, @ModelAttribute Autor autor) {
+		boolean preconditions = false;
+		try {
+			preconditions = autorService.isCreable(autor);
+		} catch (ServiceException se) {
+			System.err.println(se.getMessage());
+		}
+		if (!preconditions)
+			return "redirect:/autor";
+		
 		try {
 			autorService.create(autor);
 		} catch (ServiceException se) {

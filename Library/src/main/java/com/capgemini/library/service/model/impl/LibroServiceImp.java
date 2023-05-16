@@ -76,7 +76,7 @@ public class LibroServiceImp implements LibroService {
 			libro.setTipo(pojo.getTipo());
 		try {
 			libroRepository.save(libro);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -85,7 +85,7 @@ public class LibroServiceImp implements LibroService {
 	public void deleteById(String id) throws ServiceException {
 		try {
 			libroRepository.deleteById(id);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -114,6 +114,26 @@ public class LibroServiceImp implements LibroService {
 
 	}
 
+	@Override
+	public boolean isCreable(Libro libro, String autorID) throws ServiceException {
+		if (libro == null || libro.getId() == null || libro.getId().length() == 0 //
+				|| libro.getTipo() == null || libro.getEditorial() == null //
+				|| libro.getEditorial().length() == 0 || libro.getAnyo() == null)
+			return true;
+		try {
+			if(libroRepository.findById(libro.getId()).isPresent())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
 
+		try {
+			if(libroRepository.findById(autorID).isEmpty())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		return true;
+	}
 
 }

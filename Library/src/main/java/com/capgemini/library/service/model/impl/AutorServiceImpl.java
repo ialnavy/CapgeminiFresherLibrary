@@ -77,4 +77,21 @@ public class AutorServiceImpl implements AutorService {
 		}
 	}
 
+	@Override
+	public boolean isCreable(Autor autor) throws ServiceException {
+		if (autor == null || autor.getId() == null || autor.getId().length() == 0
+				|| autor.getFechaNacimiento() == null || autor.getNombre() == null 
+				|| autor.getNombre().length() == 0) 
+			return false;
+		try {
+			if(autorRepository.findById(autor.getId()).isPresent()) 
+				return false;
+		}catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		
+		
+		return true;
+	}
+
 }

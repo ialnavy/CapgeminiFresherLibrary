@@ -53,7 +53,16 @@ public class LibroController {
 			@RequestParam(name = "autorID", required = false) String autorID) {
 		if (autorID == null || autorID.length() == 0)
 			return "redirect:/libro";
-
+		
+		boolean preconditions = false;
+		try {
+			preconditions = libroService.isCreable(libro, autorID);
+		} catch (ServiceException se) {
+			System.err.println(se.getMessage());
+		}
+		if (!preconditions)
+			return "redirect:/libro";
+		
 		try {
 			libroService.create(libro);
 		} catch (ServiceException se) {
