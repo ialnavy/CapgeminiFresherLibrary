@@ -51,7 +51,7 @@
 						<td headers="lectorName" th:text="${iReserva.lector.nombre}">Nombre del lector -</td>
 						<td headers="libroTitle" th:text="${iReserva.copia.libro.titulo}">Título del libro -</td>
 						<td headers="fechaReserva" th:text="${iReserva.fechaReserva}">Fecha de reserva -</td>
-						<td headers="fechaNotificacion" th:text="${iReserva.fechaNotificacion}">Fecha de notificación -</td>
+						<td headers="fechaNotificacion" th:text="${iReserva.fechaNotificacion} ?: 'Sin notificar aún'">Fecha de notificación -</td>
 						<td headers="deleteLink"><a th:href="'/reserva/delete/' + ${iReserva.id}" th:alt="'Enlace a la eliminación de la reserva del libro ' + ${iReserva.copia.libro.titulo} + ' del lector ' + ${iReserva.lector.nombre}" >Eliminar</a></td>
 					</tr>
 				</tbody:block>
