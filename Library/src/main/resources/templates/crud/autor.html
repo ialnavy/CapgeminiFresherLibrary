@@ -49,7 +49,7 @@
 	                    <td headers="nombreAutor" th:text="${autor.nombre}">Titulo -</td>
 	                    <td headers="nacionalidad" th:text="${autor.nacionalidad}">Tipo -</td>
 	                    <td headers="fechaNacimiento" th:text="${autor.fechaNacimiento}">Editorial -</td>
-	                    <td headers="deleteLink"><a th:href="'/autor/delete/' + ${autor.id}" th:alt="'Enlace a la eliminación del autor' + ${autor.nombre}" >Eliminar</a></td>
+	                    <td headers="deleteLink"><a th:href="'/autor/delete/' + ${autor.id}" th:alt="'Enlace a la eliminación del autor ' + ${autor.nombre}" >Eliminar</a></td>
 	                </tr>
 	             </tbody:block>
 	    	</table>
