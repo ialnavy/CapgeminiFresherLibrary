@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +49,11 @@ public class LibroController {
 	}
 
 	@PostMapping("/libro/create")
-	public String createLibro(Model model, @ModelAttribute Libro libro, @RequestParam("autorID") String autorID) {
+	public String createLibro(Model model, @ModelAttribute Libro libro, //
+			@RequestParam(name = "autorID", required = false) String autorID) {
+		if (autorID == null || autorID.length() == 0)
+			return "redirect:/libro";
+
 		try {
 			libroService.create(libro);
 		} catch (ServiceException se) {
@@ -67,8 +70,13 @@ public class LibroController {
 	}
 
 	@PostMapping("/libro/edit")
-	public String editLibro(Model model, @ModelAttribute Libro pojo, BindingResult result,
-			@RequestParam("libroID") String libroID, @RequestParam("autorID") String autorID) {
+	public String editLibro(Model model, @ModelAttribute Libro pojo, //
+			@RequestParam(name = "libroID", required = false) String libroID, //
+			@RequestParam(name = "autorID", required = false) String autorID) {
+		if (libroID == null || libroID.length() == 0 //
+				|| autorID == null || autorID.length() == 0)
+			return "redirect:/libro";
+
 		pojo.setId(libroID);
 
 		try {

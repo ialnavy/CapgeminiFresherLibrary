@@ -76,6 +76,9 @@ public class CopiaController {
 
 	@GetMapping("/copia/delete/{copiaID}")
 	public String deleteCopia(Model model, @PathVariable(value = "copiaID") String copiaID) {
+		if (copiaID == null || copiaID.length() == 0)
+			return "redirect:/copia";
+
 		try {
 			copiaService.deleteById(copiaID);
 		} catch (ServiceException se) {

@@ -35,6 +35,7 @@
     		<table class="table">
 	            <thead class="thead-dark">
 	                <tr>
+	                	<th scope="col" id="copiaID">ID de la copia</th>
 	                    <th scope="col" id="libro">Libro</th>
 	                    <th scope="col" id="estado">Estado de la copia</th>
 	                    <th scope="col" id="deleteLink">Eliminar</th>
@@ -42,6 +43,7 @@
 	            </thead>
 	            <tbody:block th:each="iCopia : ${todasLasCopias}">
 	                <tr>
+	                	<td headers="estado" th:text="${iCopia.id}" class="text-capitalize">ID</td>
 	                    <td headers="libro" th:text="${iCopia.libro.titulo}">Título</td>
 	                    <td headers="estado" th:text="${iCopia.estado}" class="text-capitalize">Estado</td>
 	                    <td headers="deleteLink"><a th:href="'/copia/delete/' + ${iCopia.id}" th:alt="'Enlace a la eliminación de la copia del libro ' + ${iCopia.libro.titulo} + ' en estado ' + ${iCopia.estado}" >Eliminar</a></td>
