@@ -39,11 +39,16 @@ public class PrestamoController {
 	}
 
 	@PostMapping("/prestamo/create")
-	public String realizarPrestamo(@ModelAttribute Prestamo prestamo, @RequestParam("lectorID") String lectorId,
-			@RequestParam("copiaID") String copiaId, Model model) {
+	public String realizarPrestamo(@ModelAttribute Prestamo prestamo, //
+			@RequestParam("lectorID") String lectorID, //
+			@RequestParam("copiaID") String copiaID, Model model) {
+		if (lectorID == null || lectorID.length() == 0 //
+				|| copiaID == null || copiaID.length() == 0)
+			return "redirect:/prestamo";
+
 		Lector lector = null;
 		try {
-			lector = lectorService.readById(lectorId);
+			lector = lectorService.readById(lectorID);
 		} catch (ServiceException se) {
 		}
 
@@ -55,7 +60,7 @@ public class PrestamoController {
 
 		Copia copia = null;
 		try {
-			copia = copiaService.readById(copiaId);
+			copia = copiaService.readById(copiaID);
 		} catch (ServiceException se) {
 
 		}
@@ -110,7 +115,7 @@ public class PrestamoController {
 
 		try {
 			lectores = lectorService.readAll();
-			copias =copiaService.findAllNoAlquiladas();
+			copias = copiaService.findAllNoAlquiladas();
 		} catch (ServiceException se) {
 		}
 

@@ -60,6 +60,9 @@ public class AutorController {
 
 	@GetMapping("/autor/delete/{autorID}")
 	public String deleteAutor(Model model, @PathVariable(value = "autorID") String autorID) {
+		if (autorID == null || autorID.length() == 0)
+			return "redirect:/autor";
+
 		try {
 			autorService.deleteById(autorID);
 		} catch (ServiceException se) {
