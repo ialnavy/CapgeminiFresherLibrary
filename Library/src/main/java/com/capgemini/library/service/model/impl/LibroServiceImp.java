@@ -74,13 +74,20 @@ public class LibroServiceImp implements LibroService {
 			libro.setAutor(pojo.getAutor());
 		if (pojo.getTipo() != null)
 			libro.setTipo(pojo.getTipo());
-
-		libroRepository.save(libro);
+		try {
+			libroRepository.save(libro);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
 	public void deleteById(String id) throws ServiceException {
-		libroRepository.deleteById(id);
+		try {
+			libroRepository.deleteById(id);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
@@ -98,11 +105,15 @@ public class LibroServiceImp implements LibroService {
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
+		try {
+			libro.setAutor(autor);
+			libroRepository.save(libro);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
 
-		libro.setAutor(autor);
-		libroRepository.save(libro);
 	}
-	
-	
+
+
 
 }

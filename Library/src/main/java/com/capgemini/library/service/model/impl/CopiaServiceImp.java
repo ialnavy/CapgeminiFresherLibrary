@@ -1,5 +1,6 @@
 package com.capgemini.library.service.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,24 +23,60 @@ public class CopiaServiceImp implements CopiaService {
 	private LibroRepository libroRepository;
 
 	@Override
-	public void create(Copia copia) {
-		copiaRepository.save(copia);
+	public void create(Copia copia) throws ServiceException {
+		try {
+			copiaRepository.save(copia);
+		}catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		
 	}
 
 	@Override
-	public List<Copia> readAll() {
-		return (List<Copia>) copiaRepository.findAll();
+	public List<Copia> readAll() throws ServiceException {
+		List<Copia> copias = new ArrayList<>();
+		try {
+			copias = (List<Copia>) copiaRepository.findAll();
+		}catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		return copias;
 	}
 
 	@Override
-	public Copia readById(String id) {
-		return copiaRepository.findById(id).orElse(null);
+	public Copia readById(String id) throws ServiceException {
+		Copia copia = null;
+		try {
+			copia = copiaRepository.findById(id).orElse(null);
+		}catch(Exception e) {
+			throw new ServiceException(e);
+		}
+		return copia;
 	}
 
 	@Override
-	public List<Copia> findAllNoAlquiladas() {
-		return (List<Copia>) copiaRepository.findByPrestamo(null);
+	public List<Copia> findAllNoAlquiladas() throws ServiceException {
+		List<Copia> copia = new ArrayList<>();
+		try {
+			copia = copiaRepository.findByPrestamo(null);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}
+		return copia;
 	}
+	
+	@Override
+	public List<Copia> findAllYaAlquiladas() throws ServiceException {
+		List<Copia> copia = new ArrayList<>();
+		try {
+			copia = copiaRepository.findYaAlquiladas();
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}
+		return copia;
+	}
+	
+	
 
 	@Override
 	public void update(Copia pojo) throws ServiceException {
@@ -50,17 +87,25 @@ public class CopiaServiceImp implements CopiaService {
 			throw new ServiceException(e);
 		}
 		if (copia == null)
-			throw new ServiceException("La copia con ID " + pojo.getId() + " no existe");
+			throw new ServiceException("La copia con ID " + pojo.getId() + " no existe.");
 
 		if (pojo.getEstado() != null)
 			copia.setEstado(pojo.getEstado());
-
-		copiaRepository.save(copia);
+		try {
+			copiaRepository.save(copia);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
-	public void deleteById(String id) {
-		copiaRepository.deleteById(id);
+	public void deleteById(String id) throws ServiceException {
+		try {
+			copiaRepository.deleteById(id);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}
+		
 	}
 
 	@Override

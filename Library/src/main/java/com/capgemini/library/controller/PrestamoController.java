@@ -106,14 +106,17 @@ public class PrestamoController {
 
 	private static void initialisePrestamo(Model model, LectorService lectorService, CopiaService copiaService) {
 		List<Lector> lectores = new ArrayList<>();
+		List<Copia> copias = new ArrayList<>();
+
 		try {
 			lectores = lectorService.readAll();
+			copias =copiaService.findAllNoAlquiladas();
 		} catch (ServiceException se) {
 		}
 
 		model.addAttribute("prestamo", new Prestamo());
 		model.addAttribute("lectores", lectores);
-		model.addAttribute("copias", copiaService.findAllNoAlquiladas());
+		model.addAttribute("copias", copias);
 	}
 
 }

@@ -10,5 +10,7 @@ public interface CopiaService extends AbstractService<Copia> {
 
 	public void linkCopiaToLibro(String copiaID, String libroID) throws ServiceException;
 
-	public List<Copia> findAllNoAlquiladas();
+	public List<Copia> findAllYaAlquiladas() throws ServiceException;
+	
+	public List<Copia> findAllNoAlquiladas() throws ServiceException;
 }
