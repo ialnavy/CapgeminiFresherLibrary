@@ -13,7 +13,9 @@
 	<description>A library application for Spring Boot</description>
   <properties>
 		<java.version>17</java.version>
-	</properties>
+		<spring.version>5.3.23</spring.version>
+		<email.version>1.6.2</email.version>
+  </properties>
 	<dependencies>
 		
 		<dependency>
@@ -72,9 +74,18 @@
             <version>2.1</version>
         </dependency>
         <dependency>
- 			<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
+			  <groupId>org.springframework</groupId>
+			  <artifactId>spring-context-support</artifactId>
+		</dependency>
+        <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+			  <groupId>com.sun.mail</groupId>
+			  <artifactId>javax.mail</artifactId>
+			  <version>${email.version}</version>
+		</dependency>
         
 	</dependencies>
 
