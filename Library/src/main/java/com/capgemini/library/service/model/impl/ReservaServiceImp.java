@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.library.ServiceException;
 import com.capgemini.library.model.Copia;
+import com.capgemini.library.model.EstadoCopia;
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Reserva;
 import com.capgemini.library.repository.CopiaRepository;
@@ -94,8 +96,11 @@ public class ReservaServiceImp implements ReservaService {
 
 	@Override
 	public void create(Reserva reserva) throws ServiceException {
-		// Guardar la reserva
-		reservaRepository.save(reserva);
+		try {
+			reservaRepository.save(reserva);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override
@@ -155,6 +160,47 @@ public class ReservaServiceImp implements ReservaService {
 		}
 
 		reserva.setLector(lector);
-		reservaRepository.save(reserva);
+		try {
+			reservaRepository.save(reserva);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
 	}
+
+	@Override
+	public boolean isCreable(Reserva reserva, String lectorID, String copiaID) throws ServiceException {
+		if (reserva == null || reserva.getId() == null || reserva.getId().length() == 0
+				|| reserva.getFechaReserva() == null)
+			return false;
+
+		try {
+			if (reservaRepository.findById(reserva.getId()).isPresent())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+
+		try {
+			if (lectorRepository.findById(lectorID).isEmpty())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+
+		Copia copia = null;
+		try {
+			Optional<Copia> optCopia = copiaRepository.findById(copiaID);
+			if (optCopia.isEmpty())
+				return false;
+			copia = optCopia.get();
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+
+		if (copia.getEstado().equals(EstadoCopia.PRESTADO))
+			return false;
+
+		return true;
+	}
+
 }
