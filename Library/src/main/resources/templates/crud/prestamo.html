@@ -11,7 +11,7 @@
 				<div class="form-group">
 					<label for="lector">¿Qué lector desea realizar el préstamo?</label>
 					<select class="form-control" id="lector" name="lectorID">
-						<option th:each="iLector : ${lectores}" th:value="${iLector.id}" th:text="'' + ${iLector.nSocio} + ' ' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
+						<option th:each="iLector : ${todosLosLectores}" th:value="${iLector.id}" th:text="'' + ${iLector.nSocio} + ' ' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
 					</select>
 				</div>
 				
