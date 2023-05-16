@@ -38,7 +38,7 @@ public class Prestamo implements Serializable {
 	@ManyToOne
 	private Lector lector;
 
-	@OneToOne
+	@OneToOne(mappedBy = "prestamo")
 	private Copia copia;
 
 	public Prestamo() {
