@@ -12,7 +12,7 @@ public interface CopiaRepository extends CrudRepository<Copia, String> {
 
 	public List<Copia> findByPrestamo(Prestamo prestamo);
     
-    @Query("SELECT c FROM copia c WHERE c.prestamo IS NOT NULL")
+    @Query("SELECT c FROM Copia c WHERE c.prestamo IS NOT NULL")
     public List<Copia> findYaAlquiladas();
 
 }
