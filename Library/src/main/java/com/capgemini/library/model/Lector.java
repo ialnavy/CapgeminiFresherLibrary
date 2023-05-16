@@ -6,10 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,10 +41,10 @@ public class Lector implements Serializable {
 	@Column
 	private String direccion;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne
 	private Multa multa = null;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lector", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "lector")
 	private Set<Prestamo> prestamos = new HashSet<>();
 
 	public Lector() {

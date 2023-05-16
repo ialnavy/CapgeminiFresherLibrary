@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,16 +24,19 @@ public class Reserva implements Serializable {
 	private String id = UUID.randomUUID().toString();
 
 	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime fechaReserva;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "copia_id")
 	private Copia copia;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "lector_id")
 	private Lector lector;
 
+	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime fechaNotificacion;
 
 	public String getId() {
