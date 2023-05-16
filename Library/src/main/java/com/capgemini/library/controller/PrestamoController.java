@@ -1,6 +1,7 @@
 package com.capgemini.library.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,9 @@ import com.capgemini.library.ServiceException;
 import com.capgemini.library.model.Copia;
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Prestamo;
-import com.capgemini.library.service.LectorService;
 import com.capgemini.library.service.PrestamoService;
 import com.capgemini.library.service.model.CopiaService;
+import com.capgemini.library.service.model.LectorService;
 
 @Controller
 public class PrestamoController {
@@ -40,7 +41,12 @@ public class PrestamoController {
 	@PostMapping("/prestamo/create")
 	public String realizarPrestamo(@ModelAttribute Prestamo prestamo, @RequestParam("lectorID") String lectorId,
 			@RequestParam("copiaID") String copiaId, Model model) {
-		Lector lector = lectorService.getLectorById(lectorId);
+		Lector lector = null;
+		try {
+			lector = lectorService.readById(lectorId);
+		} catch (ServiceException se) {
+		}
+
 		if (lector == null) {
 			model.addAttribute("message", "No se pudo realizar el préstamo porque el lector con el ID dado no existe");
 			initialisePrestamo(model, lectorService, copiaService);
@@ -83,7 +89,12 @@ public class PrestamoController {
 
 	@GetMapping("/prestamo/list/{lectorID}")
 	public String getPrestamosByLector(Model model, @PathVariable(value = "lectorID") String lectorID) {
-		Lector lector = lectorService.getLectorById(lectorID);
+		Lector lector = null;
+		try {
+			lector = lectorService.readById(lectorID);
+		} catch (ServiceException se) {
+		}
+
 		if (lector == null) {
 			model.addAttribute("message", "No existe ningún lector con el ID dado");
 			model.addAttribute("prestamos", new ArrayList<Prestamo>());
@@ -94,8 +105,14 @@ public class PrestamoController {
 	}
 
 	private static void initialisePrestamo(Model model, LectorService lectorService, CopiaService copiaService) {
+		List<Lector> lectores = new ArrayList<>();
+		try {
+			lectores = lectorService.readAll();
+		} catch (ServiceException se) {
+		}
+
 		model.addAttribute("prestamo", new Prestamo());
-		model.addAttribute("lectores", lectorService.getAllLectores());
+		model.addAttribute("lectores", lectores);
 		model.addAttribute("copias", copiaService.findAllNoAlquiladas());
 	}
 

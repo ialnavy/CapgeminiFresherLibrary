@@ -38,6 +38,9 @@ public class Lector implements Serializable {
 	private String telefono;
 
 	@Column
+	private String email;
+
+	@Column
 	private String direccion;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -106,6 +109,14 @@ public class Lector implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getDireccion() {
