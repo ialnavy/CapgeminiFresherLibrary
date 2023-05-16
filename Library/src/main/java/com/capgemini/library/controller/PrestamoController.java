@@ -58,7 +58,17 @@ public class PrestamoController {
 		if (lectorID == null || lectorID.length() == 0 //
 				|| copiaID == null || copiaID.length() == 0)
 			return "redirect:/prestamo";
-
+		
+		boolean preconditions = false;
+		try {
+			preconditions = prestamoService.isCreable(prestamo, lectorID);
+		} catch (ServiceException se) {
+			System.err.println(se.getMessage());
+		}
+		if (!preconditions)
+			return "redirect:/prestamo";
+		
+		
 		Lector lector = null;
 		try {
 			lector = lectorService.readById(lectorID);

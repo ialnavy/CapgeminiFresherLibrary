@@ -98,22 +98,33 @@ public class LectorServiceImp implements LectorService {
 	@Override
 	public String realizarPrestamo(String lectorID, String copiaID, Prestamo prestamo)  throws ServiceException{
 		prestamo.setFechaFin(LocalDate.now().plusDays(30));
-
-		Lector lector = lectorRepository.findById(lectorID).orElse(null);
-		Copia copia = copiaRepository.findById(copiaID).orElse(null);
+		Lector lector = null;
+		Copia copia = null;
+		try {
+			lector = lectorRepository.findById(lectorID).orElse(null);
+			copia = copiaRepository.findById(copiaID).orElse(null);
+		} catch (Exception e) {
+			
+		}
+		
 		copia.setEstado(EstadoCopia.PRESTADO);
-
+		
 		prestamo.setLector(lector);
 		prestamo.setCopia(copia);
 
-		prestamoRepository.save(prestamo);
-
+		try {
+			prestamoRepository.save(prestamo);
+		} catch (Exception e) {
+		}
+		
 		lector.getPrestamos().add(prestamo);
 		copia.setPrestamo(prestamo);
-
-		lector = lectorRepository.save(lector);
-		copia = copiaRepository.save(copia);
-
+		try {
+			lector = lectorRepository.save(lector);
+			copia = copiaRepository.save(copia);
+		} catch (Exception e) {
+			
+		}
 		return prestamo.getId();
 	}
 
