@@ -16,26 +16,25 @@ import jakarta.persistence.Table;
 @Table
 public class Reserva implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4429209086756420860L;
 
-    @Id
-    @Column
-    private String id = UUID.randomUUID().toString();
+	@Id
+	@Column
+	private String id = UUID.randomUUID().toString();
 
-    @Column
-    private LocalDateTime fechaReserva;
+	@Column
+	private LocalDateTime fechaReserva;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "copia_id")
-    private Copia copia;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "copia_id")
+	private Copia copia;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lector_id")
-    private Lector lector;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lector_id")
+	private Lector lector;
 
-    
-    private LocalDateTime fechaNotificacion;
-    
+	private LocalDateTime fechaNotificacion;
+
 	public String getId() {
 		return id;
 	}
