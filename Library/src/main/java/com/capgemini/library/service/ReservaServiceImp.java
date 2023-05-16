@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.library.model.Reserva;
 import com.capgemini.library.repository.ReservaRepository;
+import com.capgemini.library.service.model.LectorService;
 
 @Service
 public class ReservaServiceImp implements ReservaService {
