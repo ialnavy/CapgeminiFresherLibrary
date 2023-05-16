@@ -65,6 +65,15 @@ public class ReservaController {
 				|| reserva.getFechaReserva() == null)
 			return "redirect:/reserva";
 
+		boolean preconditions = false;
+		try {
+			preconditions = reservaService.isCreable(reserva, lectorID, copiaID);
+		} catch (ServiceException se) {
+			System.err.println(se.getMessage());
+		}
+		if (!preconditions)
+			return "redirect:/reserva";
+
 		try {
 			reservaService.create(reserva);
 		} catch (ServiceException se) {
