@@ -12,6 +12,7 @@ import com.capgemini.library.ServiceException;
 import com.capgemini.library.model.Lector;
 import com.capgemini.library.model.Multa;
 import com.capgemini.library.model.Prestamo;
+import com.capgemini.library.repository.LectorRepository;
 import com.capgemini.library.repository.MultaRepository;
 import com.capgemini.library.repository.PrestamoRepository;
 import com.capgemini.library.service.model.PrestamoService;
@@ -24,6 +25,9 @@ public class PrestamoServiceImp implements PrestamoService {
 
 	@Autowired
 	private PrestamoRepository prestamoRepository;
+	
+	@Autowired
+	private LectorRepository lectorRepository;
 
 	@Override
 	public void create(Prestamo prestamo) throws ServiceException {
@@ -127,6 +131,29 @@ public class PrestamoServiceImp implements PrestamoService {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean isCreable(Prestamo prestamo, String lectorID) throws ServiceException {
+		if(prestamo == null || prestamo.getId() == null || prestamo.getId().length() == 0
+				|| prestamo.getFechaInicio() == null || lectorID == null || lectorID.length() == 0)
+			return false;
+		
+		try {
+			if(prestamoRepository.findById(prestamo.getId()).isPresent())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		
+		try {
+			if(lectorRepository.findById(lectorID).isEmpty())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		
+		return true;
 	}
 
 }
