@@ -29,7 +29,7 @@ public class CopiaServiceImp implements CopiaService {
 		}catch (Exception e) {
 			throw new ServiceException(e);
 		}
-		
+
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class CopiaServiceImp implements CopiaService {
 		}
 		return copia;
 	}
-	
+
 	@Override
 	public List<Copia> findAllYaAlquiladas() throws ServiceException {
 		List<Copia> copia = new ArrayList<>();
@@ -75,8 +75,8 @@ public class CopiaServiceImp implements CopiaService {
 		}
 		return copia;
 	}
-	
-	
+
+
 
 	@Override
 	public void update(Copia pojo) throws ServiceException {
@@ -105,7 +105,7 @@ public class CopiaServiceImp implements CopiaService {
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}
-		
+
 	}
 
 	@Override
@@ -126,6 +126,28 @@ public class CopiaServiceImp implements CopiaService {
 
 		copia.setLibro(libro);
 		copiaRepository.save(copia);
+	}
+
+	@Override
+	public boolean isCreable(Copia copia, String libroID) throws ServiceException {
+		if (copia == null || copia.getId() == null || copia.getId().length() == 0 //
+				|| copia.getEstado() == null || libroID == null || libroID.length() == 0)
+			return false;
+
+		try {
+			if(copiaRepository.findById(copia.getId()).isPresent())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		
+		try {
+			if(libroRepository.findById(libroID).isEmpty())
+				return false;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+		return true;
 	}
 
 }

@@ -37,6 +37,16 @@ public class LectorController {
 
 	@PostMapping("/lector/create")
 	public String createLector(Model model, @ModelAttribute Lector lector) {
+		boolean preconditions = false;
+		try {
+			preconditions = lectorService.isCreable(lector);
+		} catch (ServiceException se) {
+			System.err.println(se.getMessage());
+		}
+		if (!preconditions)
+			return "redirect:/lector";
+
+		
 		try {
 			lectorService.create(lector);
 		} catch (ServiceException se) {
