@@ -1,12 +1,13 @@
 package com.capgemini.library.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,17 +24,20 @@ public class Reserva implements Serializable {
 	private String id = UUID.randomUUID().toString();
 
 	@Column
-	private LocalDateTime fechaReserva;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaReserva;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "copia_id")
 	private Copia copia;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "lector_id")
 	private Lector lector;
 
-	private LocalDateTime fechaNotificacion;
+	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaNotificacion;
 
 	public String getId() {
 		return id;
@@ -43,11 +47,11 @@ public class Reserva implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDateTime getFechaReserva() {
+	public LocalDate getFechaReserva() {
 		return fechaReserva;
 	}
 
-	public void setFechaReserva(LocalDateTime localDateTime) {
+	public void setFechaReserva(LocalDate localDateTime) {
 		this.fechaReserva = localDateTime;
 	}
 
@@ -67,11 +71,11 @@ public class Reserva implements Serializable {
 		this.lector = lector;
 	}
 
-	public LocalDateTime getFechaNotificacion() {
+	public LocalDate getFechaNotificacion() {
 		return fechaNotificacion;
 	}
 
-	public void setFechaNotificacion(LocalDateTime fechaNotificacion) {
+	public void setFechaNotificacion(LocalDate fechaNotificacion) {
 		this.fechaNotificacion = fechaNotificacion;
 	}
 

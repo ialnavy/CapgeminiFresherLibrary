@@ -1,5 +1,6 @@
 package com.capgemini.library.service.model.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class ReservaServiceImp implements ReservaService {
 						"Su libro reservado está disponible",
 						"El libro que reservaste está ahora disponible. Tienes 48 horas para recogerlo.");
 				// Guardar la fecha y hora actuales para poder verificar si han pasado 48 horas.
-				reserva.setFechaNotificacion(LocalDateTime.now());
+				reserva.setFechaNotificacion(LocalDate.now());
 				reservaRepository.save(reserva);
 			} catch (Exception e) {
 				throw new ServiceException(e);
@@ -157,5 +158,3 @@ public class ReservaServiceImp implements ReservaService {
 		reservaRepository.save(reserva);
 	}
 }
-
-
