@@ -47,7 +47,7 @@ public class PrestamoController {
 		model.addAttribute("prestamo", new Prestamo());
 		model.addAttribute("todosLosLectores", lectores);
 		model.addAttribute("todasLasCopias", copias);
-		model.addAttribute("tododsLosPrestamos", prestamos);
+		model.addAttribute("todosLosPrestamos", prestamos);
 		return "crud/prestamo";
 	}
 
