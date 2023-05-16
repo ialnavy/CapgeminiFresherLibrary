@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}"></head>
+<body>
+	<header th:replace="~{fragments/header}"></header>
+	<main>
+		<h2>Realizar la reserva de la copia de un libro</h2>
+		<section>
+			<h3>Realizar reserva</h3>
+			<form class="p-3 mb-2 bg-light" action="#" th:action="@{/reserva/create}" method="post" th:object="${reserva}">
+				<div class="form-group">
+					<p><label for="lector">¿Qué lector desea realizar la reserva?</label></p>
+					<select class="form-control" id="lector" name="lectorID">
+						<option th:each="iLector : ${todosLosLectores}" th:value="${iLector.id}" th:text="'' + ${iLector.nSocio} + ' ' + ${iLector.nombre} + ' (' + ${iLector.telefono} + ', ' + ${iLector.direccion} + ')'">-</option>
+					</select>
+				</div>
+				<div class="form-group">
+		            <p><label for="libro">¿De qué copia se desea realizar la reserva?</label></p>
+		            <select class="form-control" id="copia" name="copiaID">
+		                <option th:each="iCopia : ${todasLasCopias}" th:value="${iCopia.id}" th:text="${iCopia.libro.titulo} + ', en estado: ' + ${iCopia.estado}">-</option>
+		            </select>
+		        </div>
+				<div class="form-group">
+					<p>
+						<label for="fechaReserva">Fecha de reserva:</label> 
+						<input type="date" class="form-control" id="fechaReserva" th:field="*{fechaReserva}" />
+					</p>
+				</div>
+				<div class="form-group text-center">
+					<p>
+						<input type="submit" value="Enviar" />
+						<input type="reset" value="Vaciar datos" />
+					</p>
+				</div>
+			</form>
+		</section>
+		<section>
+			<h3>Listado de reservas</h3>
+			<table class="table table-striped table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col" id="lectorName">Nombre del lector</th>
+						<th scope="col" id="libroTitle">Título del libro</th>
+						<th scope="col" id="fechaReserva">Fecha de reserva</th>
+						<th scope="col" id="fechaNotificacion">Fecha de notificación</th>
+						<th scope="col" id="deleteLink">Eliminar</th> 
+					</tr>
+				</thead>
+				<tbody:block th:each="iReserva : ${todasLasReservas}">
+					<tr>
+						<td headers="lectorName" th:text="${iReserva.lector.nombre}">Nombre del lector -</td>
+						<td headers="libroTitle" th:text="${iReserva.copia.libro.titulo}">Título del libro -</td>
+						<td headers="fechaReserva" th:text="${iReserva.fechaReserva}">Fecha de reserva -</td>
+						<td headers="fechaNotificacion" th:text="${iReserva.fechaNotificacion}">Fecha de notificación -</td>
+						<td headers="deleteLink"><a th:href="'/reserva/delete/' + ${iReserva.id}" th:alt="'Enlace a la eliminación de la reserva del libro ' + ${iReserva.copia.libro.titulo} + ' del lector ' + ${iReserva.lector.nombre}" >Eliminar</a></td>
+					</tr>
+				</tbody:block>
+			</table>
+		</section>
+	</main>
+	<footer th:replace="~{fragments/footer}"></footer>
+</body>
+
+</html>
