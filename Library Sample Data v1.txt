@@ -1,0 +1,15 @@
+INSERT INTO `capgemini_asturias`.`autor` (`fecha_nacimiento`, `id`, `nacionalidad`, `nombre`) VALUES ('1898-06-05', 'A', 'Española', 'Federico García Lorca');
+INSERT INTO `capgemini_asturias`.`autor` (`fecha_nacimiento`, `id`, `nacionalidad`, `nombre`) VALUES ('1951-11-25', 'B', 'Española', 'Arturo Pérez Reverte');
+INSERT INTO `capgemini_asturias`.`autor` (`fecha_nacimiento`, `id`, `nacionalidad`, `nombre`) VALUES ('1914-08-26', 'C', 'Argentina', 'Julio Florencio Cortázar');
+
+INSERT INTO `capgemini_asturias`.`libro` (`anyo`, `autor_id`, `editorial`, `id`, `tipo`, `titulo`) VALUES ('1945', 'A', 'Anaya', 'A', 'TEATRO', 'La casa de Bernarda Alba');
+INSERT INTO `capgemini_asturias`.`libro` (`anyo`, `autor_id`, `editorial`, `id`, `tipo`, `titulo`) VALUES ('1963', 'C', 'Anaya', 'B', 'NOVELA', 'Rayuela');
+INSERT INTO `capgemini_asturias`.`libro` (`anyo`, `autor_id`, `editorial`, `id`, `tipo`, `titulo`) VALUES ('1996', 'B', 'Anaya', 'C', 'NOVELA', 'El capitán Alatriste');
+
+INSERT INTO `capgemini_asturias`.`copia` (`estado`, `id`, `libro_id`) VALUES ('BIBLIOTECA', 'A', 'A');
+INSERT INTO `capgemini_asturias`.`copia` (`estado`, `id`, `libro_id`) VALUES ('BIBLIOTECA', 'B', 'B');
+INSERT INTO `capgemini_asturias`.`copia` (`estado`, `id`, `libro_id`) VALUES ('BIBLIOTECA', 'C', 'C');
+
+INSERT INTO `capgemini_asturias`.`lector` (`n_socio`, `direccion`, `id`, `nombre`, `telefono`) VALUES ('1', 'Calle Falsa 123', 'A', 'Iván Álvarez López', '985111111');
+INSERT INTO `capgemini_asturias`.`lector` (`n_socio`, `direccion`, `id`, `nombre`, `telefono`) VALUES ('2', 'Calle Falsa 123', 'B', 'Ignacio Angulo Couso', '985111111');
+INSERT INTO `capgemini_asturias`.`lector` (`n_socio`, `direccion`, `id`, `nombre`, `telefono`) VALUES ('3', 'Calle Falsa 123', 'C', 'Alejandro Varela García', '985111111');
